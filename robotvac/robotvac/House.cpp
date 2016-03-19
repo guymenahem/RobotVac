@@ -19,25 +19,25 @@ House::House(char _shortName[], char _longName[], int len, int wid, char ** hous
 	repairHouse();
 }
 
-
+// Sensing the House at location (x,y)
 SensorInformation House::Sense(Point location)
 {
 	SensorInformation info;
 
 	// Check if there is wall North
-	if (this->curHouse[location.getX()][location.getY() - 1] == 'W')
+	if (this->curHouse[location.getX()][location.getY() - 1] == WALL)
 		info.isWall[WallInfo::North] = true;
 
 	// South
-	if (this->curHouse[location.getX()][location.getY() + 1] == 'W')
+	if (this->curHouse[location.getX()][location.getY() + 1] == WALL)
 		info.isWall[WallInfo::South] = true;
 
 	// East
-	if (this->curHouse[location.getX() + 1][location.getY()] == 'W')
+	if (this->curHouse[location.getX() + 1][location.getY()] == WALL)
 		info.isWall[WallInfo::East] = true;
 
 	// West
-	if (this->curHouse[location.getX() - 1][location.getY()] == 'W')
+	if (this->curHouse[location.getX() - 1][location.getY()] == WALL)
 		info.isWall[WallInfo::East] = true;
 
 	info.dirtLevel = curHouse[location.getX()][location.getY()];
@@ -45,6 +45,7 @@ SensorInformation House::Sense(Point location)
 	return info;
 }
 
+// Try to clean spot and return if success
 bool House::Clean(Point p)
 {
 	char dirt = curHouse[p.getX()][p.getY()]--;
@@ -52,26 +53,28 @@ bool House::Clean(Point p)
 
 }
 
+// Repair house and put walls at it
 void House::repairHouse()
 {
 	// put walls on Sides
 	for (int i = 0; i < this->width; i++)
 	{
-		this->curHouse[i][0] = 'W';
-		this->curHouse[i][this->length - 1] = 'W';
+		this->curHouse[i][0] = WALL;
+		this->curHouse[i][this->length - 1] = WALL;
 	}
 		
 	// put Walls on Top & Bot
 	for (int i = 0; i < this->length; i++)
 	{
-		this->curHouse[0][i] = 'W';
-		this->curHouse[this->width - 1][i] = 'W';
+		this->curHouse[0][i] = WALL;
+		this->curHouse[this->width - 1][i] = WALL;
 	}
 }
 
+// Check if the house is clean
 bool House::isHouseClean()
 {
-	// Check on every block
+	// Check on every tile
 	for (int i = 0; i < this->width; i++)
 	{
 		for (int j = 0; j < this->length; j++)
@@ -82,5 +85,19 @@ bool House::isHouseClean()
 	}
 
 	return true;
+}
+
+// Get Docking Location
+Point House::getDockingLocation()
+{
+	// Check on every tile
+	for (int i = 0; i < this->width; i++)
+	{
+		for (int j = 0; j < this->length; j++)
+		{
+			if (this->curHouse[i][j] == DOCKING)
+				return Point(j, i);
+		}
+	}
 }
 

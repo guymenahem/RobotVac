@@ -16,7 +16,6 @@ class Point;
 class Tracker{
 
 public:
-	
 	bool isGameFinished();
 
 private:
