@@ -18,15 +18,12 @@ class Sensor{
 
 
 public:
-
-	// Public FUnctions
+	// Public Functions
 	SensorInformation Sense();
 
 private:
 	// Private Data Members
 	House * house;
-
-
 };
 
 
