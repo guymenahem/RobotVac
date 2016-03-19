@@ -6,6 +6,7 @@
 
 // Class Forward decleration
 class House;
+enum WallInfo {North = 0, South = 1, East = 2, West = 3};
 
 // Structs
 struct SensorInformation {
