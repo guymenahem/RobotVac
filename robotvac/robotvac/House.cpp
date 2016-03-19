@@ -1,5 +1,6 @@
 #include "House.h"
 #include "Conf.h"
+#include "Sensor.h"
 
 House::House(char _shortName[], char _longName[], int len, int wid, char ** house)
 	:length(len), width(wid)
