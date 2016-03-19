@@ -12,6 +12,12 @@ const int MAX_HOUSE_LEN = 20;
 const int MIN_HOUSE_WID = 10;
 const int MAX_HOUSE_WID = 79;
 
+// Game configuraion
+int MAX_STEPS = 1200;
+int MAX_STEPS_AFTER_WIN = 200;
+int BATTERY_CAPACITY = 400;
+int BATTERY_CONSUMPTION_RATE = 1;
+int BATTERY_RECHARGE_RATE = 20;
 
 
 
