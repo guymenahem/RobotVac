@@ -4,6 +4,8 @@
 // Includes
 #include "KeyboardAlgo.h"
 #include "Point.h"
+#include "House.h"
+
 
 // Class forward decleration
 class KeyboardAlgo;
@@ -24,6 +26,7 @@ private:
 	int score;				// Score for algorithem 
 	Point robotLocation;	// Robot Location
 	int numOfSteps;			// Num of steps since start
+	House house;
 
 
 };

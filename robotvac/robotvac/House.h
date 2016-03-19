@@ -11,7 +11,6 @@ class Sensor;
 class Point;
 
 
-
 class House
 {
 public:
@@ -26,6 +25,7 @@ public:
 
 	// Functions
 	SensorInformation Sense(Point location);
+	
 	bool Clean(Point p);
 	bool isHouseClean();
 
