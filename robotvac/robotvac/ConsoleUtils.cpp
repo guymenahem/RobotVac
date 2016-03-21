@@ -1,6 +1,8 @@
 
-#include "Config.h"
+#include "Conf.h"
 #include "ConsoleUtils.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace std;
 

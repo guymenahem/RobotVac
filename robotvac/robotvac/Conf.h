@@ -1,6 +1,7 @@
 #ifndef _CONF_H_
 #define _CONF_H_
 
+
 // enums
 enum class Direction { East, West, South, North, Stay };
 
@@ -20,5 +21,5 @@ const int BATTERY_CONSUMPTION_RATE = 1;
 const int BATTERY_RECHARGE_RATE = 20;
 
 
-
+#define WINDOWS
 #endif 

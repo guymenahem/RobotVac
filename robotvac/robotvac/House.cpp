@@ -84,7 +84,7 @@ bool House::isHouseClean()
 	return true;
 }
 
-Point House::findDockingStation(const char house[][MAX_HOUSE_WID + 1], int rows, int cols)
+Point House::findDockingStation(const char house[][MAX_HOUSE_WID], int rows, int cols)
  {
 	for (size_t row = 0; row < rows; ++row) {
 		for (size_t col = 0; col < cols; ++col) {

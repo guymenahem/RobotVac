@@ -15,6 +15,8 @@ class Simulation{
 
 public:
 	// Public Functions
+	Simulation(){}
+	
 	Direction Step();
     void Init();
 	void Start();

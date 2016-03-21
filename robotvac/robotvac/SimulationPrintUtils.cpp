@@ -1,5 +1,8 @@
 #include "Point.h"
-#include  "SimulationPrintUtils.h"
+#include "SimulationPrintUtils.h"
+#include "ConsoleUtils.h"
+#include <iostream>
+using  namespace std;
 
 void SimulationPrintUtils::printInitialMenu()
 {
@@ -15,7 +18,7 @@ void SimulationPrintUtils::printSecondaryMenu()
 	cout << "9-exit" << endl;
 }
 
-void SimulationPrintUtils::printInitialHouseSimulation(const char house[][MAX_HOUSE_WID + 1],
+void SimulationPrintUtils::printInitialHouseSimulation(const char house[][MAX_HOUSE_WID],
 	int rows,
 	int cols,
 	Point& dockingStation)
@@ -24,7 +27,7 @@ void SimulationPrintUtils::printInitialHouseSimulation(const char house[][MAX_HO
 	printPointOnMovedHouse(house, rows, cols, dockingStation, dockingStation, false, '@');
 }
 
-void SimulationPrintUtils::printPointOnMovedHouse(const char house[][MAX_COL + 1],
+void SimulationPrintUtils::printPointOnMovedHouse(const char house[][MAX_HOUSE_WID],
 	int rows,
 	int cols,
 	Point& point,

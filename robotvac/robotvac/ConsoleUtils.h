@@ -2,7 +2,7 @@
 #define _CONSOLEUTILS_H_
 // you must have a config file, both for windows and for compiling on Linux (MAMA)
 // BUT, you need to change the content of the config!
-#include "Config.h"
+#include "Conf.h"
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>

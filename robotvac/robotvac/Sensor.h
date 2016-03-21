@@ -12,7 +12,8 @@ enum WallInfo {North = 0, South = 1, East = 2, West = 3};
 struct SensorInformation {
 	int dirtLevel;
 	bool isWall[4];
-};
+};
+
 
 class Sensor{
 

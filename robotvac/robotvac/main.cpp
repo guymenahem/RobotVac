@@ -1,6 +1,6 @@
 #include "Point.h"
 #include "Simulation.h"
-//using namespace std;
+using namespace std;
 
 int main() 
 {
