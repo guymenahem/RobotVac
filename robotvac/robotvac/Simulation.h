@@ -1,5 +1,5 @@
-#ifndef _STIMULATION_H_
-#define _STIMULATION_H_
+#ifndef _SIMULATION_H_
+#define _SIMULATION_H_
 
 // Includes
 #include "House.h"
@@ -13,7 +13,7 @@ class KeyboardAlgo;
 class Tracker;
 
 
-class Stimulation{
+class Simulation{
 
 public:
 	// Public Functions

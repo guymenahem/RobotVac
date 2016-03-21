@@ -23,10 +23,9 @@ private:
 	
 	int battery;			// Batery Left
 	int score;				// Score for algorithem 
+	int numOfSteps;			// Num of steps since start
 	Point curLocation;		// Robot current location
 	KeyboardAlgo algo;		// Algorithem to track
-	int numOfSteps;			// Num of steps since start
-	Point robotLocation;	// Robot Location
 	House  house;			// House of tracker - if change to House* no problem with undefined class 'House'
 
 
