@@ -19,6 +19,14 @@ const int BATTERY_CAPACITY = 400;
 const int BATTERY_CONSUMPTION_RATE = 1;
 const int BATTERY_RECHARGE_RATE = 20;
 
+// Enums
+enum WallInfo { North = 0, South = 1, East = 2, West = 3 };
+enum { DOCKING = 'D', WALL = 'W' };
 
+// Structs
+struct SensorInformation {
+	int dirtLevel;
+	bool isWall[4];
+};
 
 #endif 

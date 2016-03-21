@@ -1,6 +1,4 @@
 #include "House.h"
-#include "Conf.h"
-#include "Sensor.h"
 
 House::House(char _shortName[], char _longName[], int len, int wid, char ** house)
 	:length(len), width(wid)
@@ -20,9 +18,9 @@ House::House(char _shortName[], char _longName[], int len, int wid, char ** hous
 }
 
 // Sensing the House at location (x,y)
-SensorInformation House::Sense(Point location)
+struct SensorInformation House::Sense(Point location)
 {
-	SensorInformation info;
+	struct SensorInformation info;
 
 	// Check if there is wall North
 	if (this->curHouse[location.getX()][location.getY() - 1] == WALL)

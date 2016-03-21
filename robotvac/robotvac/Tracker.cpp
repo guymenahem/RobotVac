@@ -1,5 +1,10 @@
 #include "Tracker.h"
 
+struct SensorInformation Tracker::Sense()
+{
+	return this->house.Sense(this->curLocation);;
+}
+
 // Check if game is finished
 bool Tracker::isGameFinished()
 {

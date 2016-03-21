@@ -1,11 +1,10 @@
 #include "Sensor.h"
-#include "House.h"
 
 // Constructor for Sensor
-Sensor::Sensor(House * ptrHouse) : house(ptrHouse) {}
+Sensor::Sensor(Tracker * ptrTracker) : tracker(ptrTracker) {}
 
 // Sense
-SensorInformation Sensor::Sense(Point p)
+SensorInformation Sensor::Sense()
 {
-	return this->house->Sense(p);
+	return this->tracker->Sense();
 }

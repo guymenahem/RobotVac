@@ -2,14 +2,16 @@
 #define _STIMULATION_H_
 
 // Includes
-#include "Sensor.h"
-#include "KeyboardAlgo.h"
 #include "House.h"
+#include "KeyboardAlgo.h"
 #include "Tracker.h"
+#include "Conf.h"
 
 //Class forward Decleraion
-class KeyboardAlgo;
 class House;
+class KeyboardAlgo;
+class Tracker;
+
 
 class Stimulation{
 
@@ -21,7 +23,6 @@ public:
 private:
 
 	// Private Data Members
-	Direction lastDir;
 	KeyboardAlgo keyAlgo;
 	House house;
 

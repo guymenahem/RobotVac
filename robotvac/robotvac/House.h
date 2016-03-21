@@ -1,14 +1,10 @@
 #ifndef _HOUSE_H_
 #define _HOUSE_H_
 
-#include "Sensor.h"
+#include <string.h>
+//#include "Sensor.h"
 #include "Conf.h"
 #include "Point.h"
-#include <string.h>
-
-// Class Forward Decleration
-class Sensor;
-class Point;
 
 
 class House
@@ -24,10 +20,10 @@ public:
 	House(char _shortName[], char _longName[], int len, int wid, char** house);
 
 	// Functions
-	SensorInformation Sense(Point location);
-	
+	struct SensorInformation Sense(Point location);
 	bool Clean(Point p);
 	bool isHouseClean();
+	Point getDockingLocation();
 
 private:
 
