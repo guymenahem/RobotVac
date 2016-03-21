@@ -16,7 +16,8 @@ class Stimulation{
 public:
 	// Public Functions
 	Direction Step();
-
+    void Init();
+	void Start();
 
 private:
 
