@@ -11,7 +11,7 @@
 class KeyboardAlgo;
 class House;
 
-class Stimulation{
+class Simulation{
 
 public:
 	// Public Functions
