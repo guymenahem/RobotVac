@@ -29,7 +29,7 @@ void SimulationPrintUtils::printPointOnMovedHouse(const char house[][MAX_COL + 1
 	int cols,
 	Point& point,
 	Point& dockingStation,
-	bool isPrintHouseChar, char CharToPrint)
+	bool isPrintHouseChar, char charToPrint)
 {
 	// we put the house in the center of the screen always
 	int startYPrintingLocation = (12 - (rows / 2));
@@ -50,8 +50,8 @@ void SimulationPrintUtils::printPointOnMovedHouse(const char house[][MAX_COL + 1
 	gotoxy(startXPrintingLocation + point.getX(), startYPrintingLocation + point.getY());
 
 	// check if print the point in house or the robot char\other char
-	CharToPrint = isPrintHouseChar ? house[y][x] : CharToPrint;
-	cout << CharToPrint;
+	charToPrint = isPrintHouseChar ? house[y][x] : charToPrint;
+	cout << charToPrint;
 }
 
 
