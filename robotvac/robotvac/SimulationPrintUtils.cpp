@@ -15,7 +15,7 @@ void SimulationPrintUtils::printSecondaryMenu()
 	cout << "9-exit" << endl;
 }
 
-void SimulationPrintUtils::printInitialHouseSimulation(const char house[][MAX_COL + 1],
+void SimulationPrintUtils::printInitialHouseSimulation(const char house[][MAX_HOUSE_WID + 1],
 	int rows,
 	int cols,
 	Point& dockingStation)

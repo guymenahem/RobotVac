@@ -33,6 +33,7 @@ private:
 
 	// Reapairing the house walls
 	void repairHouse();
+	static Point findDockingStation(const char house[][MAX_HOUSE_WID + 1], int rows, int cols);
 	
 };
 

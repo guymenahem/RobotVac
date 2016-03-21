@@ -84,3 +84,14 @@ bool House::isHouseClean()
 	return true;
 }
 
+Point House::findDockingStation(const char house[][MAX_HOUSE_WID + 1], int rows, int cols)
+ {
+	for (size_t row = 0; row < rows; ++row) {
+		for (size_t col = 0; col < cols; ++col) {
+			if (house[row][col] == House::DOCKING) {
+				return Point(col, row); 
+			}
+		}
+	}
+	return Point(-1, -1);
+}
