@@ -1,9 +1,10 @@
 #include "Point.h"
+#include "Simulation.h"
+//using namespace std;
 
-
-void main()
+int main() 
 {
-	
-
+	Simulation simulation;
+	simulation.Init();
+	simulation.Start();
 }
-
