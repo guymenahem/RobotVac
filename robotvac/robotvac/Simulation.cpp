@@ -1,7 +1,7 @@
 #include "Conf.h"
 #include "Simulation.h"
-#include  "SimulationPrintUtils.h"
-#include  "House.h"
+#include "SimulationPrintUtils.h"
+
 
 void Simulation::Start()
 {
@@ -13,24 +13,10 @@ void Simulation::Start()
 		{
 			key = _getch();
 			if (key == 49)
-			{
-				// print initial console and start the robot
-				char house[][MAX_HOUSE_WID] =
-				{
+			{	
+				
 
-					//0123456789012345678
-					"WWWWWWWWWWWWWWWWW",
-					"W  123          W",
-					"W               W",
-					"W             D W",
-					"WWWWWWWWWWWWWWWWW"
-				};
-				size_t rows = 5;
-				size_t cols = 17;
-				
-				
-				SimulationPrintUtils::printInitialHouseSimulation(house, rows,
-					cols, House::findDockingStation(house, rows, cols));
+
 
 			}
 
@@ -41,13 +27,13 @@ void Simulation::Start()
 }
 
 
-void Simulation::Init()
+void Simulation::Init(KeyboardAlgo& algo)
 {
-	// this houses are here just for now
-
-
-
-
+	//House house1;
+	Sensor sensor;
+	Tracker tracker;
+	keyAlgo = algo;
+	algo.SetSenosr(&sensor);
 	// here we would initilize all needed stuff for the simulation
 	// houses,sensors and etc..
 

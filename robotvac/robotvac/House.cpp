@@ -1,10 +1,10 @@
 #include "House.h"
-#include "Conf.h"
-#include "Sensor.h"
+#include "SimulationPrintUtils.h"
 
 House::House(char _shortName[], char _longName[], int len, int wid, char ** house)
-	:length(len), width(wid)
 {
+	length = len;
+	width = wid;
 	strcpy(shortName, _shortName);
 	strcpy(longName, _longName);
 	curHouse = new char*[wid];
@@ -38,7 +38,7 @@ SensorInformation House::Sense(Point location)
 
 	// West
 	if (this->curHouse[location.getX() - 1][location.getY()] == 'W')
-		info.isWall[WallInfo::East] = true;
+		info.isWall[WallInfo::West] = true;
 
 	info.dirtLevel = curHouse[location.getX()][location.getY()];
 
@@ -84,14 +84,27 @@ bool House::isHouseClean()
 	return true;
 }
 
-Point House::findDockingStation(const char house[][MAX_HOUSE_WID], int rows, int cols)
+Point House::findDockingStation()
  {
-	for (size_t row = 0; row < rows; ++row) {
-		for (size_t col = 0; col < cols; ++col) {
-			if (house[row][col] == House::DOCKING) {
+	for (size_t row = 0; row < length; ++row) {
+		for (size_t col = 0; col < width; ++col) {
+			if (curHouse[row][col] == House::DOCKING) {
 				return Point(col, row); 
 			}
 		}
 	}
 	return Point(-1, -1);
+}
+
+void House::printDiscoveredPoints(Point& point)
+{
+	SimulationPrintUtils::printPointOnMovedHouse(curHouse, length, width, point, findDockingStation(), false, '@');
+	SimulationPrintUtils::printPointOnMovedHouse(curHouse, length, width, point.GetDownPoint(),
+		findDockingStation(), true, '#');
+	SimulationPrintUtils::printPointOnMovedHouse(curHouse, length, width, point.GetLeftPoint(),
+		findDockingStation(), true, '#');
+	SimulationPrintUtils::printPointOnMovedHouse(curHouse, length, width, point.GetRightPoint(),
+		findDockingStation(), true, '#');
+	SimulationPrintUtils::printPointOnMovedHouse(curHouse, length, width, point.GetUpperPoint(),
+		findDockingStation(), true, '#');
 }

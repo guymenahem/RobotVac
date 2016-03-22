@@ -3,28 +3,31 @@
 
 // Includes
 #include "House.h"
+#include "Conf.h"
+#include "Point.h"
 
 // Class Forward decleration
-class House;
-enum WallInfo {North = 0, South = 1, East = 2, West = 3};
 
-// Structs
-struct SensorInformation {
-	int dirtLevel;
-	bool isWall[4];
-};
+
 
 
 class Sensor{
 
 
 public:
+	Sensor()
+	{}
+	Sensor(House* _house)
+	{
+		house = _house;
+	}
+
 	// Public Functions
-	SensorInformation Sense();
+	SensorInformation Sense(Point location);
 
 private:
 	// Private Data Members
-	House * house;
+	House* house;
 };
 
 

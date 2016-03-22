@@ -4,12 +4,7 @@
 // Includes
 #include "Sensor.h"
 #include "KeyboardAlgo.h"
-#include "House.h"
 #include "Tracker.h"
-
-//Class forward Decleraion
-class KeyboardAlgo;
-class House;
 
 class Simulation{
 
@@ -18,7 +13,7 @@ public:
 	Simulation(){}
 	
 	Direction Step();
-    void Init();
+	void Init(KeyboardAlgo& algo);
 	void Start();
 
 private:
@@ -26,7 +21,8 @@ private:
 	// Private Data Members
 	Direction lastDir;
 	KeyboardAlgo keyAlgo;
-	House house;
+	Tracker tracker;
+	//House house;
 
 };
 

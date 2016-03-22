@@ -1,9 +1,15 @@
 #ifndef _CONF_H_
 #define _CONF_H_
 
-
 // enums
+enum WallInfo{ North = 0, South = 1, East = 2, West = 3 };
 enum class Direction { East, West, South, North, Stay };
+
+// Structs
+struct SensorInformation {
+	int dirtLevel;
+	bool isWall[4];
+};
 
 // House Configuraion
 const int SHORT_NAME_LEN = 20;

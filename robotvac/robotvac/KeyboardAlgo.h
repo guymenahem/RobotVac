@@ -3,18 +3,29 @@
 
 //Includes
 #include "Conf.h"
+#include "Point.h"
 
 // Class forward decleration
 class Sensor;
 
 class KeyboardAlgo{
 
-public:
-	
-
 private:
 	Direction lastDirection;
 	Sensor* ptrSensor;
+public:
+	void SetSenosr(Sensor* _sensor)
+	{
+		ptrSensor = _sensor;
+	}
+
+	void Move(Point& lastLoc);
+
+	Sensor* GetSensor()
+	{
+		return ptrSensor;
+	}
+
 
 };
 

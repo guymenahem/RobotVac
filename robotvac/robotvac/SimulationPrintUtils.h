@@ -13,12 +13,12 @@ public:
 	
 	
 	// house printing related stuff
-	static void printMovedHouse(const char house[][MAX_HOUSE_WID], int rows, int cols);
-	static void printInitialHouseSimulation(const char house[][MAX_HOUSE_WID],
+	static void printMovedHouse(char** house, int rows, int cols);
+	static void printInitialHouseSimulation(char** house,
 		int rows,
 		int cols,
 		Point& dockingStation);
-	static void printPointOnMovedHouse(const char house[][MAX_HOUSE_WID],
+	static void printPointOnMovedHouse(char** house,
 		int rows,
 		int cols,
 		Point& point,
