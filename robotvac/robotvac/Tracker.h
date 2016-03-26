@@ -16,19 +16,25 @@ class Tracker{
 
 public:
 	bool isGameFinished();
-	struct SensorInformation Sense();
-
+	Tracker(House _house, KeyboardAlgo* _algo);
+	Tracker(){}
+	void step();
 
 private:
 	
 	int battery;			// Batery Left
 	int score;				// Score for algorithem 
+	int numOfCleared;		// Num of cleared dirt
 	int numOfSteps;			// Num of steps since start
 	Point curLocation;		// Robot current location
-	KeyboardAlgo algo;		// Algorithem to track
+	Point dockLocation;		// Docking location
+	KeyboardAlgo* algo;		// Algorithem to track
+	PrintHelper printHelper;// Print Helper 
 	House  house;			// House of tracker - if change to House* no problem with undefined class 'House'
 
+	bool checkValidStep(Direction direction);
 
+	void moveByDirection(Direction direction);
 };
 
 

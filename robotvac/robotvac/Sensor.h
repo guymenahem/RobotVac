@@ -3,11 +3,13 @@
 
 // Includes
 #include "Point.h"
-#include "Tracker.h"
+#include "House.h"
 
-// Class Forward decleration
-class Tracker;
-
+// Structs
+typedef struct SensorInformation {
+	int dirtLevel;
+	bool isWall[4];
+};
 
 
 class Sensor{
@@ -15,13 +17,20 @@ class Sensor{
 
 public:
 
+	//Ctor
+	Sensor(House* _ptrHouse, Point* _ptrCurLocation);
+
 	// Public Functions
-	SensorInformation Sense();
-	Sensor(Tracker * ptrTracker);
+	SensorInformation sense();
+	Point* getCurrentLocation()
+	{
+		return ptrCurLocation;
+	}
 
 private:
 	// Private Data Members
-	Tracker * tracker;
+	House* ptrHouse;
+	Point* ptrCurLocation;
 };
 
 

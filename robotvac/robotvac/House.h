@@ -10,26 +10,31 @@
 class House
 {
 public:
-	char shortName[SHORT_NAME_LEN];
-	char longName[LONG_NAME_LEN];
-	int length;
-	int width;
-	char ** curHouse;
 
 	//Constructor
-	House(char _shortName[], char _longName[], int len, int wid, char** house);
-
+	House(char _shortName[], char _longName[], int height, int width, char** house);
+	House(){}
 	// Functions
 	struct SensorInformation Sense(Point location);
 	bool Clean(Point p);
 	bool isHouseClean();
 	Point getDockingLocation();
 
+	int getHeight(){ return height; }
+	int getWidth(){ return width; }
+	char getPointInfo(Point location);
+
 private:
+	char shortName[SHORT_NAME_LEN];
+	char longName[LONG_NAME_LEN];
+	int height;
+	int width;
+	char ** curHouse;
+
+	// TODO : sum num of dirt in house
 
 	// Reapairing the house walls
 	void repairHouse();
-	
 };
 
 #endif

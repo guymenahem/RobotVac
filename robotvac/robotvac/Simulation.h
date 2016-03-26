@@ -17,15 +17,26 @@ class Simulation{
 
 public:
 	// Public Functions
+	Simulation();	// C'tor
 	Direction Step();
-
+	void addAlgo(KeyboardAlgo& algo)
+	{
+		keyAlgo = algo;
+	}
+	void prepareSimultaion();
+	void start();
+	void endSimulation();
 
 private:
 
 	// Private Data Members
 	KeyboardAlgo keyAlgo;
 	House house;
+	Tracker tracker;
 
+
+	// Private Functions
+	void loadHouses();
 };
 
 
