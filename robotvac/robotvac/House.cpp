@@ -2,7 +2,7 @@
 #include "Sensor.h"
 
 House::House(char _shortName[], char _longName[], int height, int width, char ** house)
-	:height(height), width(width)
+:height(height), width(width)
 {
 	strcpy(shortName, _shortName);
 	strcpy(longName, _longName);
@@ -15,7 +15,8 @@ House::House(char _shortName[], char _longName[], int height, int width, char **
 		strcpy(curHouse[i], house[i]);
 	}
 
-	repairHouse();
+	this->initTotalDirt();
+	this->repairHouse();
 }
 
 // Sensing the House at location (x,y)
@@ -26,20 +27,29 @@ struct SensorInformation House::Sense(Point location)
 	// Check if there is wall North
 	if (this->curHouse[location.getY() - 1][location.getX()] == WALL)
 		info.isWall[WallInfo::North] = true;
+	else
+		info.isWall[WallInfo::North] = false;
+
 
 	// South
 	if (this->curHouse[location.getY() + 1][location.getX()] == WALL)
 		info.isWall[WallInfo::South] = true;
+	else
+		info.isWall[WallInfo::South] = false;
 
 	// East
 	if (this->curHouse[location.getY()][location.getX() + 1] == WALL)
 		info.isWall[WallInfo::East] = true;
+	else
+		info.isWall[WallInfo::East] = false;
 
 	// West
-	if (this->curHouse[location.getY()][location.getX() -1] == WALL)
+	if (this->curHouse[location.getY()][location.getX() - 1] == WALL)
 		info.isWall[WallInfo::West] = true;
+	else
+		info.isWall[WallInfo::West] = false;
 
-	info.dirtLevel = (curHouse[location.getY()][location.getX()] == ' ' || 
+	info.dirtLevel = (curHouse[location.getY()][location.getX()] == ' ' ||
 		curHouse[location.getY()][location.getX()] == DOCKING) ? 0 : curHouse[location.getY()][location.getX()] - '0';
 
 	return info;
@@ -52,6 +62,7 @@ bool House::Clean(Point p)
 	if (dirt - '0' > 0 && dirt - '0' <= 9)
 	{
 		curHouse[p.getY()][p.getX()]--;
+		this->totalDirt--;
 		return true;
 	}
 	return false;
@@ -66,7 +77,7 @@ void House::repairHouse()
 		this->curHouse[i][0] = WALL;
 		this->curHouse[i][this->width - 1] = WALL;
 	}
-		
+
 	// put Walls on Top & Bot
 	for (int i = 0; i < this->width; i++)
 	{
@@ -78,21 +89,14 @@ void House::repairHouse()
 // Check if the house is clean
 bool House::isHouseClean()
 {
-	// Check on every tile
-	for (int i = 0; i < this->height; i++)
-	{
-		for (int j = 0; j < this->width; j++)
-		{
-			if (this->curHouse[i][j]-'0' > 0 && this->curHouse[i][j]-'0' <= 9)
-				return false;
-		}
-	}
+	if (this->totalDirt == 0)
+		return true;
 
-	return true;
+	return false;
 }
 
 // Get Docking Location
-Point House::getDockingLocation()
+Point House::getFirstDockingLocation()
 {
 	// Check on every tile
 	for (int i = 0; i < this->height; i++)
@@ -111,3 +115,23 @@ char House::getPointInfo(Point location)
 	return curHouse[location.getY()][location.getX()];
 }
 
+// Init total dirt amount
+void House::initTotalDirt()
+{
+	this->totalDirt = 0;
+
+	// Check on every tile
+	for (int i = 0; i < this->height; i++)
+	{
+		for (int j = 0; j < this->width; j++)
+		{
+			if (this->curHouse[i][j] - '0' > 0 && this->curHouse[i][j] - '0' <= 9)
+				this->totalDirt = this->totalDirt + this->curHouse[i][j] - '0';
+		}
+	}
+}
+
+bool House::isDocking(Point location)
+{
+	return (this->getPointInfo(location) == DOCKING);
+}

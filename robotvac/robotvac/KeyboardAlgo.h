@@ -19,6 +19,7 @@ public:
 	void setSensor(Sensor* sensor);
 	void setPrintHelper(PrintHelper * _ptrPrintHelp);
 	Direction step();
+	void printCurLocation();
 
 
 private:

@@ -59,7 +59,7 @@ void SimulationPrintUtils::printPointOnMovedHouse(int rows,
 	int cols,
 	Point& point,
 	Point& dockingStation,
-	 char charToPrint)
+	char charToPrint)
 {
 	// we put the house in the center of the screen always
 	int startYPrintingLocation = (12 - (rows / 2));

@@ -20,11 +20,11 @@ Direction KeyboardAlgo::step()
 
 	// Wait for user replay
 	Sleep(500);
-	
+
 	// check if hit key
 	if (_kbhit())
 	{
-		return getDirectinoByKey(_getch());
+		this->lastDirection = getDirectinoByKey(_getch());
 	}
 
 	return this->lastDirection;
@@ -64,15 +64,21 @@ Direction KeyboardAlgo::getDirectinoByKey(char key)
 
 void KeyboardAlgo::printSensorInfo(struct SensorInformation info, Point location)
 {
-	
+
 	// TODO : print current spot (dirtLevel)
 
 	if (info.isWall[WallInfo::North])
-		ptrPrintHelp->PrintPoint(Point(location.getX(), location.getY() - 1 ), 'W');
+		ptrPrintHelp->PrintPoint(Point(location.getX(), location.getY() - 1), 'W');
 	if (info.isWall[WallInfo::South])
 		ptrPrintHelp->PrintPoint(Point(location.getX(), location.getY() + 1), 'W');
 	if (info.isWall[WallInfo::West])
 		ptrPrintHelp->PrintPoint(Point(location.getX() - 1, location.getY()), 'W');
 	if (info.isWall[WallInfo::East])
 		ptrPrintHelp->PrintPoint(Point(location.getX() + 1, location.getY()), 'W');
+	ptrPrintHelp->PrintPoint(location, '@');
+}
+
+void KeyboardAlgo::printCurLocation()
+{
+	ptrPrintHelp->PrintPoint(*(this->ptrSensor->getCurrentLocation()), '@');
 }

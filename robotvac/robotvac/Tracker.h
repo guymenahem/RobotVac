@@ -19,9 +19,10 @@ public:
 	Tracker(House _house, KeyboardAlgo* _algo);
 	Tracker(){}
 	void step();
-
+	void initTracker(House _house, KeyboardAlgo* _algo);
 private:
-	
+
+	bool abortGame;
 	int battery;			// Batery Left
 	int score;				// Score for algorithem 
 	int numOfCleared;		// Num of cleared dirt

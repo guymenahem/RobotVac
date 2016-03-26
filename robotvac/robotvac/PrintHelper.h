@@ -3,12 +3,12 @@
 
 class PrintHelper
 {
-	public:
-		PrintHelper(){}
-		PrintHelper(House * _ptrHouse, Point* _ptrDock);
-		void PrintPoint(Point point, char charToPrint);
+public:
+	PrintHelper(){}
+	PrintHelper(House * _ptrHouse, Point* _ptrDock);
+	void PrintPoint(Point point, char charToPrint);
 
-	private:
-		House * ptrHouse;
-		Point * ptrDock;
+private:
+	House * ptrHouse;
+	Point * ptrDock;
 };

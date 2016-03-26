@@ -13,7 +13,7 @@ const int MIN_HOUSE_WID = 10;
 const int MAX_HOUSE_WID = 79;
 
 // Game configuraion
-const int MAX_STEPS = 1200;
+const int MAX_STEPS = 1500;
 const int MAX_STEPS_AFTER_WIN = 200;
 const int BATTERY_CAPACITY = 400;
 const int BATTERY_CONSUMPTION_RATE = 1;

@@ -18,7 +18,8 @@ public:
 	struct SensorInformation Sense(Point location);
 	bool Clean(Point p);
 	bool isHouseClean();
-	Point getDockingLocation();
+	bool isDocking(Point location);
+	Point getFirstDockingLocation();
 
 	int getHeight(){ return height; }
 	int getWidth(){ return width; }
@@ -29,12 +30,12 @@ private:
 	char longName[LONG_NAME_LEN];
 	int height;
 	int width;
+	unsigned int totalDirt;
 	char ** curHouse;
-
-	// TODO : sum num of dirt in house
 
 	// Reapairing the house walls
 	void repairHouse();
+	void initTotalDirt();
 };
 
 #endif
