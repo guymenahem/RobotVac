@@ -19,11 +19,13 @@ public:
 	bool Clean(Point p);
 	bool isHouseClean();
 	bool isDocking(Point location);
+	bool isValidHouse();
 	Point getFirstDockingLocation();
 
 	int getHeight(){ return height; }
 	int getWidth(){ return width; }
 	char getPointInfo(Point location);
+	int getTotalDirtLeft();
 
 private:
 	char shortName[SHORT_NAME_LEN];
@@ -36,6 +38,7 @@ private:
 	// Reapairing the house walls
 	void repairHouse();
 	void initTotalDirt();
+
 };
 
 #endif

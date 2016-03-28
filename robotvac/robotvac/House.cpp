@@ -107,6 +107,8 @@ Point House::getFirstDockingLocation()
 				return Point(j, i);
 		}
 	}
+
+	return Point(-1, -1);
 }
 
 // Get Point location
@@ -131,7 +133,38 @@ void House::initTotalDirt()
 	}
 }
 
+// If location is on docking
 bool House::isDocking(Point location)
 {
 	return (this->getPointInfo(location) == DOCKING);
+}
+
+// Get anoumt of left dirt
+int House::getTotalDirtLeft()
+{
+	return this->totalDirt;
+}
+
+// Check if house is valid for simulation
+bool House::isValidHouse()
+{
+	bool isFound = false;
+
+	// Check the number of docking station
+	for (int i = 0; i < this->height; i++)
+	{
+		for (int j = 0; j < this->width; j++)
+		{
+			if (this->curHouse[i][j] == DOCKING)
+				if (isFound)
+				{
+					return false;
+				}
+				else
+				{
+					isFound = true;
+				}
+		}
+	}
+	return isFound;
 }

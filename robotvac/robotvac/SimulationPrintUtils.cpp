@@ -16,43 +16,45 @@ void SimulationPrintUtils::printSecondaryMenu()
 	cout << "9-exit" << endl;
 }
 
-void SimulationPrintUtils::printInitialHouseSimulation(char** house,
-	int rows,
-	int cols,
-	Point& dockingStation)
+void SimulationPrintUtils::printRoundDetails(int roundNum, int totalDustInHouse, int totalCollected, int batteryState)
 {
-	clear_screen();
-	printPointOnMovedHouse(house, rows, cols, dockingStation, dockingStation, false, '@');
+	gotoxy(0, 25);
+	cout << flush;
+	cout << "Round num= " << roundNum << " total dust in house= " << totalDustInHouse
+		<< " total collected= " << totalCollected << " battery State= " << batteryState 
+		<< "                                                                           ";
 }
 
-void SimulationPrintUtils::printPointOnMovedHouse(char** house,
-	int rows,
-	int cols,
-	Point& point,
-	Point& dockingStation,
-	bool isPrintHouseChar, char charToPrint)
+void SimulationPrintUtils::printScore(int score)
 {
-	// we put the house in the center of the screen always
-	int startYPrintingLocation = (12 - (rows / 2));
-	startYPrintingLocation = startYPrintingLocation > 13 ? startYPrintingLocation - 3 : startYPrintingLocation;
-	int startXPrintingLocation = (40 - (cols / 2));
+	gotoxy(0, 25);
+	cout << flush;
+	cout << "simulation ended! the score is:" << score
+		<< "                                                                           ";
 
-	// offset to put the according to docking station in 40,12
-	int offsetX = 40 - (dockingStation.getX() + startXPrintingLocation);
-	int offsetY = 12 - (dockingStation.getY() + startYPrintingLocation);
+}
 
+void SimulationPrintUtils::printInsruction()
+{
+	cout << "use 'w' - for up" << endl;
+	cout << "use 'a' - for left" << endl;
+	cout << "use 'd' - for right" << endl;
+	cout << "use 'x' - for down" << endl;
+	cout << "use 's' - for stay" << endl;
+	cout << "make sure your keyboard is on english" << endl;
+	cout << "press 1 to start the game or 9 to exit";
+}
 
-	int x = (point.getX() - offsetX) % cols;
-	x = x < 0 ? cols + x : x;
-	int y = (point.getY() - offsetY) % rows;
-	y = y < 0 ? rows + y : y;
+void SimulationPrintUtils::printInvalidStep()
+{
+	gotoxy(0, 25);
+	cout << "vauum cleaner made invalid step! game is over                                            ";
+}
 
-	// go to x,y on screen
-	gotoxy(startXPrintingLocation + point.getX(), startYPrintingLocation + point.getY());
-
-	// check if print the point in house or the robot char\other char
-	charToPrint = isPrintHouseChar ? house[y][x] : charToPrint;
-	cout << charToPrint;
+void SimulationPrintUtils::printInvalidHouse()
+{
+	gotoxy(0, 25);
+	cout << "House is not valid                                                                       ";
 }
 
 void SimulationPrintUtils::printPointOnMovedHouse(int rows,
@@ -71,43 +73,46 @@ void SimulationPrintUtils::printPointOnMovedHouse(int rows,
 	int offsetY = 12 - (dockingStation.getY() + startYPrintingLocation);
 
 
-	int x = (point.getX() - offsetX) % cols;
+	int x = (point.getX() + offsetX) % cols;
 	x = x < 0 ? cols + x : x;
-	int y = (point.getY() - offsetY) % rows;
+	int y = (point.getY() + offsetY) % rows;
 	y = y < 0 ? rows + y : y;
 
 	// go to x,y on screen
-	gotoxy(startXPrintingLocation + point.getX(), startYPrintingLocation + point.getY());
+	gotoxy(startXPrintingLocation + x, startYPrintingLocation + y);
 
 	cout << charToPrint;
 }
 
-//void House::printMovedHouse(const char house[][MAX_COL + 1], int rows, int cols) {
-//	// this part is for debug only, you don't actually need to print the column numbers...
-//	//cout << endl;
-//	//cout << "          1         2         3         4         5         6         7         " << endl;
-//	//cout << "01234567890123456789012345678901234567890123456789012345678901234567890123456789" << endl;
-//	//cout << endl;
-//
-//	int startYPrintingLocation = (12 - (rows / 2));
-//	startYPrintingLocation = startYPrintingLocation > 13 ? startYPrintingLocation - 3 : startYPrintingLocation;
-//	int startXPrintingLocation = (40 - (cols / 2));
-//	Point docking = findDockingStation(house, rows, cols);
-//	int offsetX = 40 - (docking.getX() + startXPrintingLocation);
-//	int offsetY = 12 - (docking.getY() + startYPrintingLocation);
-//
-//	for (int i = 0; i < rows; i++)
-//	{
-//		for (int j = 0; j < cols; j++)
-//		{
-//			int x = (j - offsetX) % cols;
-//			x = x < 0 ? cols + x : x;
-//			int y = (i - offsetY) % rows;
-//			y = y < 0 ? rows + y : y;
-//			gotoxy(startXPrintingLocation + j, startYPrintingLocation + i);
-//			cout << house[y][x];
-//		}
-//
-//		cout << "\0" << endl;
-//	}
-//}
+void SimulationPrintUtils::printMovedHouse(char** house,
+	int rows,
+	int cols,
+	Point& dockingStation)
+{
+
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+
+			// we put the house in the center of the screen always
+			int startYPrintingLocation = (12 - (rows / 2));
+			startYPrintingLocation = startYPrintingLocation > 13 ? startYPrintingLocation - 3 : startYPrintingLocation;
+			int startXPrintingLocation = (40 - (cols / 2));
+
+			// offset to put the according to docking station in 40,12
+			int offsetX = 40 - (dockingStation.getX() + startXPrintingLocation);
+			int offsetY = 12 - (dockingStation.getY() + startYPrintingLocation);
+
+			int x = (j + offsetX) % cols;
+			x = x < 0 ? cols + x : x;
+			int y = (i + offsetY) % rows;
+			y = y < 0 ? rows + y : y;
+
+			// go to x,y on screen
+			gotoxy(startXPrintingLocation + x, startYPrintingLocation + y);
+
+			cout << house[i][j];
+		}
+	}
+}

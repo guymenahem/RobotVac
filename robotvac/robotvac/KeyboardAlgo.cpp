@@ -15,6 +15,8 @@ void KeyboardAlgo::setPrintHelper(PrintHelper * _ptrPrintHelp)
 
 Direction KeyboardAlgo::step()
 {
+	char key;
+
 	// Sense and Print
 	this->printSensorInfo(ptrSensor->sense(), *(ptrSensor->getCurrentLocation()));
 
@@ -24,7 +26,16 @@ Direction KeyboardAlgo::step()
 	// check if hit key
 	if (_kbhit())
 	{
-		this->lastDirection = getDirectinoByKey(_getch());
+		key = _getch();
+
+		if (key == 'ECS')
+		{
+
+		}
+		else
+		{
+			this->lastDirection = getDirectinoByKey(key);
+		}
 	}
 
 	return this->lastDirection;

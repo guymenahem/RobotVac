@@ -22,6 +22,8 @@ const int BATTERY_RECHARGE_RATE = 20;
 // Enums
 enum WallInfo { North = 0, South = 1, East = 2, West = 3 };
 enum { DOCKING = 'D', WALL = 'W' };
+enum EndReason{StepIntoWall,FinishClean,BatteryDied,maxStepsDone, Restart};
+enum SimulationState{NotPrepared, Ready, Running, Finished, WaitForRestart};
 
 #define WINDOWS
 

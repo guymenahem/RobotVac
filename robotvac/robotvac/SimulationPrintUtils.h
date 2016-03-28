@@ -10,27 +10,26 @@ class SimulationPrintUtils
 public:
 	static void printInitialMenu();
 	static void printSecondaryMenu();
-
+	static void printRoundDetails(int roundNum,
+		int totalDustInHouse,
+		int totalCollected, int batteryState);
+	static void printInsruction();
+	static void printScore(int score);
+	static void printInvalidStep();
+	static void printInvalidHouse();
 
 	// house printing related stuff
-	static void printMovedHouse(char** house, int rows, int cols);
-	static void printInitialHouseSimulation(char** house,
-		int rows,
-		int cols,
-		Point& dockingStation);
-
-	static void printPointOnMovedHouse(char** house,
-		int rows,
-		int cols,
-		Point& point,
-		Point& dockingStation,
-		bool isPrintHouseChar, char CharToPrint);
 
 	static void printPointOnMovedHouse(int rows,
 		int cols,
 		Point& point,
 		Point& dockingStation,
 		char charToPrint);
+
+	static void SimulationPrintUtils::printMovedHouse(char** house,
+		int rows,
+		int cols,
+		Point& dockingStation);
 
 };
 

@@ -18,7 +18,6 @@ class Simulation{
 public:
 	// Public Functions
 	Simulation();	// C'tor
-	Direction Step();
 	void addAlgo(KeyboardAlgo& algo)
 	{
 		keyAlgo = algo;
@@ -26,6 +25,10 @@ public:
 	void prepareSimultaion();
 	void start();
 	void endSimulation();
+	void restartSimultaion();
+	int calcScoreForAlgo(Tracker& tracker);
+	bool isValidHouse();
+	SimulationState getState(){ return this->state; }
 
 private:
 
@@ -33,7 +36,8 @@ private:
 	KeyboardAlgo keyAlgo;
 	House house;
 	Tracker tracker;
-
+	SimulationState state;
+	int winnerNumStpes;
 
 	// Private Functions
 	void loadHouses();

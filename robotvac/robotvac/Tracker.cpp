@@ -11,10 +11,13 @@ void Tracker::initTracker(House _house, KeyboardAlgo* _algo)
 	battery = BATTERY_CAPACITY;
 	numOfSteps = 0;
 	numOfCleared = 0;
+	dirtLeftToClean = this->house.getTotalDirtLeft();
+	initialAmountOfDirt = dirtLeftToClean;
 	printHelper = PrintHelper(&(house), &(dockLocation));
 	Sensor* newSens = new Sensor(&(house), &(curLocation));
 	algo->setSensor(newSens);
 	algo->setPrintHelper(&printHelper);
+	returnedToDockingOnFinish = false;
 }
 
 
@@ -36,6 +39,7 @@ void Tracker::step()
 		if (house.Clean(curLocation))
 		{
 			numOfCleared++;
+			dirtLeftToClean--;
 		}
 
 		// Recharge battery if on Docking
@@ -43,10 +47,13 @@ void Tracker::step()
 		{
 			battery += BATTERY_RECHARGE_RATE;
 		}
+
+		SimulationPrintUtils::printRoundDetails(numOfSteps, this->dirtLeftToClean, this->numOfCleared, this->battery);
 	}
 	else
 	{
 		this->abortGame = true;
+		this->endreason = EndReason::StepIntoWall;
 
 		// Delete @ last location
 		this->printHelper.PrintPoint(curLocation, house.getPointInfo(curLocation));
@@ -68,6 +75,7 @@ bool Tracker::isGameFinished()
 	if (battery <= 0)
 	{
 		this->printHelper.PrintPoint(curLocation, '@');
+		this->endreason = EndReason::BatteryDied;
 		return true;
 	}
 
@@ -75,6 +83,8 @@ bool Tracker::isGameFinished()
 	if (this->house.isHouseClean() && house.isDocking(curLocation))
 	{
 		this->printHelper.PrintPoint(curLocation, '@');
+		this->returnedToDockingOnFinish = true;
+		this->endreason = EndReason::FinishClean;
 		return true;
 	}
 
@@ -82,12 +92,17 @@ bool Tracker::isGameFinished()
 	if (this->numOfSteps >= MAX_STEPS)
 	{
 		this->printHelper.PrintPoint(curLocation, '@');
+		this->endreason = EndReason::maxStepsDone;
 		return true;
 	}
 
 	// Check if abort game flag is on
 	if (this->abortGame)
+	{
+		// this->endreason = EndReason::StepIntoWall - moved the check if direction is not valid
 		return true;
+	}
+		
 
 	return false;
 }
@@ -131,3 +146,6 @@ void Tracker::moveByDirection(Direction direction)
 		break;
 	}
 }
+
+
+
