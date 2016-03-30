@@ -15,27 +15,24 @@ void KeyboardAlgo::setPrintHelper(PrintHelper * _ptrPrintHelp)
 
 Direction KeyboardAlgo::step()
 {
-	char key;
-
 	// Sense and Print
-	this->printSensorInfo(ptrSensor->sense(), *(ptrSensor->getCurrentLocation()));
+	SensorInformation sensorInfo = ptrSensor->sense();
+	this->printSensorInfo(sensorInfo, *(ptrSensor->getCurrentLocation()));
 
 	// Wait for user replay
-	Sleep(500);
+	Sleep(SLEEP_TIME);
 
 	// check if hit key
 	if (_kbhit())
 	{
-		key = _getch();
+		this->lastKey = _getch();
+		this->lastDirection = getDirectinoByKey(this->lastKey);
+	}
 
-		if (key == 'ECS')
-		{
-
-		}
-		else
-		{
-			this->lastDirection = getDirectinoByKey(key);
-		}
+	// If is going to go on wall, change direction to stay
+	if (!checkIfStepIsValid(this->lastDirection, sensorInfo))
+	{
+		this->lastDirection = Direction::Stay;
 	}
 
 	return this->lastDirection;
@@ -67,9 +64,12 @@ Direction KeyboardAlgo::getDirectinoByKey(char key)
 
 	case 's':
 	case 'S':
-	default:
+	case '\x1b': //ESC
 		return Direction::Stay;
 		break;
+
+	default:
+		return this->lastDirection;
 	}
 }
 
@@ -92,4 +92,9 @@ void KeyboardAlgo::printSensorInfo(struct SensorInformation info, Point location
 void KeyboardAlgo::printCurLocation()
 {
 	ptrPrintHelp->PrintPoint(*(this->ptrSensor->getCurrentLocation()), '@');
+}
+
+bool KeyboardAlgo::checkIfStepIsValid(Direction direction, struct SensorInformation sensorInfo)
+{
+	return !(sensorInfo.isWall[(int)direction]);
 }

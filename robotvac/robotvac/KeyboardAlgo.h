@@ -18,6 +18,8 @@ public:
 	}
 	void setSensor(Sensor* sensor);
 	void setPrintHelper(PrintHelper * _ptrPrintHelp);
+	char getLastKey(){ return lastKey; }
+	void clearLastkey() { this->lastKey = 0; }
 	Direction step();
 	void printCurLocation();
 
@@ -26,6 +28,9 @@ private:
 	Direction lastDirection;
 	Sensor* ptrSensor;
 	PrintHelper* ptrPrintHelp;
+	char lastKey;
+	bool checkIfStepIsValid(Direction direction, struct SensorInformation sensorInfo);
+	
 
 	Direction getDirectinoByKey(char key);
 	void printSensorInfo(struct SensorInformation info, Point location);

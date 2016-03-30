@@ -146,8 +146,14 @@ int House::getTotalDirtLeft()
 }
 
 // Check if house is valid for simulation
-bool House::isValidHouse()
+HouseValidation House::isValidHouse()
 {
+	if (this->width < 10 || this->width > 79)
+		return HouseValidation::InvalidSize;
+	if (this->height < 5 || this->height > 20)
+		return HouseValidation::InvalidSize;
+
+
 	bool isFound = false;
 
 	// Check the number of docking station
@@ -158,7 +164,7 @@ bool House::isValidHouse()
 			if (this->curHouse[i][j] == DOCKING)
 				if (isFound)
 				{
-					return false;
+					return HouseValidation::TooMuchDociking;
 				}
 				else
 				{
@@ -166,5 +172,12 @@ bool House::isValidHouse()
 				}
 		}
 	}
-	return isFound;
+	if (isFound)
+	{
+		return HouseValidation::Valid;
+	}
+	else
+	{
+		return HouseValidation::NoDocking;
+	}
 }

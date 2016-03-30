@@ -10,28 +10,27 @@ void SimulationPrintUtils::printInitialMenu()
 }
 void SimulationPrintUtils::printSecondaryMenu()
 {
-	cout << "1-continue" << endl;
-	cout << "2-restart simulation on this house" << endl;
-	cout << "3-go to main menu" << endl;
-	cout << "9-exit" << endl;
+	gotoxy(0, 25);
+	cout << EMPTY_LINE;
+	gotoxy(0, 25);
+	cout << "1-continue " << "2-restart " << "3-go to main menu " << "9-exit " << endl;
 }
 
 void SimulationPrintUtils::printRoundDetails(int roundNum, int totalDustInHouse, int totalCollected, int batteryState)
 {
 	gotoxy(0, 25);
-	cout << flush;
+	cout << EMPTY_LINE;
+	gotoxy(0, 25);
 	cout << "Round num= " << roundNum << " total dust in house= " << totalDustInHouse
-		<< " total collected= " << totalCollected << " battery State= " << batteryState 
-		<< "                                                                           ";
+		<< " total collected= " << totalCollected << " battery State= " << batteryState;
 }
 
 void SimulationPrintUtils::printScore(int score)
 {
 	gotoxy(0, 25);
-	cout << flush;
-	cout << "simulation ended! the score is:" << score
-		<< "                                                                           ";
-
+	cout << EMPTY_LINE;
+	gotoxy(0, 25);
+	cout << "simulation ended! the score is:" << score << endl;
 }
 
 void SimulationPrintUtils::printInsruction()
@@ -48,13 +47,35 @@ void SimulationPrintUtils::printInsruction()
 void SimulationPrintUtils::printInvalidStep()
 {
 	gotoxy(0, 25);
-	cout << "vauum cleaner made invalid step! game is over                                            ";
+	cout << EMPTY_LINE;
+	gotoxy(0, 25);
+	cout << "vauum cleaner made invalid step! game is over";
 }
 
-void SimulationPrintUtils::printInvalidHouse()
+void SimulationPrintUtils::printInvalidHouse(HouseValidation invalidProblem)
 {
 	gotoxy(0, 25);
-	cout << "House is not valid                                                                       ";
+	cout << EMPTY_LINE;
+	gotoxy(0, 25);
+
+	switch (invalidProblem)
+	{
+	case HouseValidation::InvalidSize:
+		cout << "House is not valid - invlalid size" << endl;
+		break;
+
+	case HouseValidation::TooMuchDociking:
+		cout << "House is not valid - too much docking in the house" << endl;
+		break;
+
+	case HouseValidation::NoDocking:
+		cout << "House is not valid - docking not found" << endl;
+		break;
+
+	default:
+		cout << "House is not valid" << endl;
+		break;
+	}
 }
 
 void SimulationPrintUtils::printPointOnMovedHouse(int rows,

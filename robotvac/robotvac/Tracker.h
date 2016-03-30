@@ -2,7 +2,6 @@
 #define _TRACKER_H_
 
 // Includes
-#include "House.h"
 #include "KeyboardAlgo.h"
 #include "Point.h"
 #include "Sensor.h"
@@ -18,7 +17,7 @@ public:
 	//Tracker(House _house, KeyboardAlgo* _algo);
 	Tracker(){}
 	void step();
-	void initTracker(House _house, KeyboardAlgo* _algo);
+	void initTracker(const House _house, KeyboardAlgo* _algo);
 	int getNumOfClearedDirt(){ return numOfCleared; }
 	int getNumOfSteps(){ return numOfSteps; }
 	int getNumOfInitialDirt(){ return initialAmountOfDirt; }
@@ -32,23 +31,24 @@ public:
 private:
 	EndReason endreason;
 	bool abortGame;
-	int battery;			// Batery Left
-	int score;				// Score for algorithem 
-	int numOfCleared;		// Num of cleared dirt
-	int numOfSteps;			// Num of steps since start
-	int dirtLeftToClean;    // Num of dirt  left to clean
-	int initialAmountOfDirt;// the initial amount of dirt
-	int competitionPosition=1;// the competition position
+	int battery;					// Batery Left
+	int score;						// Score for algorithem 
+	int numOfCleared;				// Num of cleared dirt
+	int numOfSteps;					// Num of steps since start
+	int dirtLeftToClean;			// Num of dirt  left to clean
+	int initialAmountOfDirt;		// the initial amount of dirt
+	int competitionPosition=1;		// the competition position
 	bool returnedToDockingOnFinish; // did return to docking station when finished
-	int competitonScore = 0;// the competition positionscore
-	Point curLocation;		// Robot current location
-	Point dockLocation;		// Docking location
-	KeyboardAlgo* algo;		// Algorithem to track
-	PrintHelper printHelper;// Print Helper 
-	House  house;			// House of tracker - if change to House* no problem with undefined class 'House'
+	int competitonScore = 0;		// the competition positionscore
+	Point curLocation;				// Robot current location
+	Point dockLocation;				// Docking location
+	KeyboardAlgo* algo;				// Algorithem to track
+	PrintHelper printHelper;		// Print Helper 
+	House  house;					// House of tracker 
 
 	bool checkValidStep(Direction direction);
 	void moveByDirection(Direction direction);
+	void restartTracker();
 };
 
 

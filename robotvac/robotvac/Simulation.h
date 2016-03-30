@@ -2,8 +2,6 @@
 #define _SIMULATION_H_
 
 // Includes
-#include "House.h"
-#include "KeyboardAlgo.h"
 #include "Tracker.h"
 #include "Conf.h"
 
@@ -27,7 +25,7 @@ public:
 	void endSimulation();
 	void restartSimultaion();
 	int calcScoreForAlgo(Tracker& tracker);
-	bool isValidHouse();
+	HouseValidation isValidHouse();
 	SimulationState getState(){ return this->state; }
 
 private:

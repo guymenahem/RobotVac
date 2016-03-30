@@ -16,7 +16,7 @@ public:
 	static void printInsruction();
 	static void printScore(int score);
 	static void printInvalidStep();
-	static void printInvalidHouse();
+	static void printInvalidHouse(HouseValidation invalidProblem);
 
 	// house printing related stuff
 

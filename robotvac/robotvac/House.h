@@ -19,7 +19,7 @@ public:
 	bool Clean(Point p);
 	bool isHouseClean();
 	bool isDocking(Point location);
-	bool isValidHouse();
+	HouseValidation isValidHouse();
 	Point getFirstDockingLocation();
 
 	int getHeight(){ return height; }

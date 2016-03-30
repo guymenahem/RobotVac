@@ -20,7 +20,6 @@ void Tracker::initTracker(House _house, KeyboardAlgo* _algo)
 	returnedToDockingOnFinish = false;
 }
 
-
 void Tracker::step()
 {
 	Direction direction = this->algo->step();
@@ -102,11 +101,59 @@ bool Tracker::isGameFinished()
 		// this->endreason = EndReason::StepIntoWall - moved the check if direction is not valid
 		return true;
 	}
+
+	// If user pressed ESC
+	if (this->algo->getLastKey() == '\x1b')
+	{
+		this->algo->clearLastkey();
+		SimulationPrintUtils::printSecondaryMenu();
+		
+		bool selectionMade = false;
+
+		while (_kbhit)
+		{
+			char key = getch();
+
+			switch (key)
+			{
+					// just continue
+				case '1':
+					// Clear the screen the print last house known - maybe in the future
+					selectionMade = true;
+					return false;
+					//break;
+
+					// Restart this house simulation
+				case '2':
+					clear_screen();
+					this->endreason = EndReason::Restart;
+					selectionMade = true;
+					return true;
+					//break;
+
+					// Go to main menu
+				case '3':
+					this->endreason = EndReason::MainMenu;
+					selectionMade = true;
+					return true;
+					//break;
+
+				// Exit
+				case '9':
+					clear_screen();
+					this->endreason = EndReason::UserAbort;
+					selectionMade = true;
+					return true;
+					//break;
+			}
+		}
+	}
 		
 
 	return false;
 }
 
+// Check if the step is valid
 bool Tracker::checkValidStep(Direction direction)
 {
 	switch (direction)
@@ -126,6 +173,7 @@ bool Tracker::checkValidStep(Direction direction)
 	return false;
 }
 
+// Move the robot by direction 
 void Tracker::moveByDirection(Direction direction)
 {
 	switch (direction)
@@ -146,6 +194,8 @@ void Tracker::moveByDirection(Direction direction)
 		break;
 	}
 }
+
+
 
 
 
