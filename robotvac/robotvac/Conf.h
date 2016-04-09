@@ -30,6 +30,7 @@ enum EndReason{ StepIntoWall, FinishClean, BatteryDied, maxStepsDone, Restart, U
 enum SimulationState{NotPrepared, Ready, Running, Finished, WaitForRestart,GoToMainMenu};
 enum HouseValidation{ Valid, InvalidSize, TooMuchDociking, NoDocking };
 
+
 #define WINDOWS
 
 #endif 

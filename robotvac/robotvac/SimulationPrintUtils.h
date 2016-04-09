@@ -26,7 +26,7 @@ public:
 		Point& dockingStation,
 		char charToPrint);
 
-	static void SimulationPrintUtils::printMovedHouse(char** house,
+	static void printMovedHouse(char** house,
 		int rows,
 		int cols,
 		Point& dockingStation);

@@ -5,6 +5,14 @@
 
 using namespace std;
 
+#ifndef WINDOWS
+void gotoxy(int x, int y){}
+void clear_screen(){}
+int _kbhit(void){ return 0; }
+void Sleep(unsigned long){}
+int _getch(void){ return 0; }
+#else
+
 void gotoxy(int x, int y)
 {
 	HANDLE hConsoleOutput;
@@ -21,4 +29,6 @@ void clear_screen()
 {
 	system("cls");
 }
+
+#endif
 

@@ -24,7 +24,7 @@ void print(char ** c, int len, int width)
 	}
 }
 
-void main()
+int main()
 {
 
 	KeyboardAlgo algo;
@@ -76,7 +76,7 @@ void main()
 					{
 						exit = true;
 						simulation.endSimulation();
-						return;
+						return 0;
 					}
 					
 				}
@@ -93,9 +93,11 @@ void main()
 			}
 			else if (key = '9')
 			{
-				return;
+				return 0;
 			}
 
 		}
 	}
+
+	return 0;
 }

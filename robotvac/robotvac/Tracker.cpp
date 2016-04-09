@@ -112,7 +112,7 @@ bool Tracker::isGameFinished()
 
 		while (_kbhit)
 		{
-			char key = getch();
+			char key = _getch();
 
 			switch (key)
 			{
