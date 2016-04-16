@@ -19,6 +19,24 @@ House::House(char _shortName[], char _longName[], int height, int width, char **
 	this->repairHouse();
 }
 
+House::House(const char* name, int height, int width, int _numberOfSteps, char** house)
+	:height(height), width(width), numberOfSteps(_numberOfSteps)
+{
+	strcpy(shortName, name);
+	strcpy(longName, name);
+	curHouse = new char*[height];
+
+	// Init copy of house
+	for (int i = 0; i < height; i++)
+	{
+		curHouse[i] = new char[width];
+		strncpy(curHouse[i], house[i],width);
+	}
+
+	this->repairHouse();
+	this->initTotalDirt();
+}
+
 // Sensing the House at location (x,y)
 struct SensorInformation House::Sense(Point location)
 {

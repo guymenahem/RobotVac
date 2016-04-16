@@ -1,5 +1,6 @@
 #include "Simulation.h"
 #include "Tracker.h"
+#include "FilesUtils.h"
 
 
 Simulation::Simulation()
@@ -91,34 +92,36 @@ void Simulation::endSimulation()
 
 void Simulation::loadHouses()
 {
-	char* bigHouse[24] = {
-		//	         10        20        30        40        50        60        70       79
-		//	01234567890123456789012345678901234567890123456789012345678901234567890123456789
-		"WWDDDDDDDDDDWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW", // 0
-		"W WWWWW WWWW                                            W                     W", // 1
-		"W D111111111                                            W                     W", // 2
-		"W WWWWW WWWW                             W              W                     W", // 3
-		"W                                       WW              W                     W", // 4
-		"W                                WWWWWWWWW              W                      ", // 5
-		"W                                                       W                      ", // 6
-		"W                                                       W                      ", // 7
-		"W                       WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW         ", // 8
-		"W                                                                              ", // 9
-		"W                                                                              ", // 10
-		"W                                                                              ", // 11
-		"W                                                                              ", // 12
-		"W                                                                              ", // 13
-		"W                                                                             W", // 14
-		"W                                                                             W", // 15
-		"W                                                                             W", // 16
-		"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                 WWWWWWWWWWWWWWWWWWWWWWWWWWWs"  // 17
-		//   01234567890123456789012345678901234567890123456789012345678901234567890123456789
-	};
+//	char* bigHouse[24] = {
+//		//	         10        20        30        40        50        60        70       79
+//		//	01234567890123456789012345678901234567890123456789012345678901234567890123456789
+//		"WWDDDDDDDDDDWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW", // 0
+//		"W WWWWW WWWW                                            W                     W", // 1
+//		"W D111111111                                            W                     W", // 2
+//		"W WWWWW WWWW                             W              W                     W", // 3
+//		"W                                       WW              W                     W", // 4
+//		"W                                WWWWWWWWW              W                      ", // 5
+//		"W                                                       W                      ", // 6
+//		"W                                                       W                      ", // 7
+//		"W                       WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW         ", // 8
+//		"W                                                                              ", // 9
+//		"W                                                                              ", // 10
+//		"W                                                                              ", // 11
+//		"W                                                                              ", // 12
+//		"W                                                                              ", // 13
+//		"W                                                                             W", // 14
+//		"W                                                                             W", // 15
+//		"W                                                                             W", // 16
+//		"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                 WWWWWWWWWWWWWWWWWWWWWWWWWWWs"  // 17
+//		//   01234567890123456789012345678901234567890123456789012345678901234567890123456789
+//	};
+//
+//
+//
+//
+//	this->house = House("ggg", "long", 18, 79, bigHouse);
 
-
-
-
-	this->house = House("ggg", "long", 18, 79, bigHouse);
+	this->house = FilesUtils::loadHouseFromFile("001.House");
 }
 
 HouseValidation Simulation::isValidHouse()

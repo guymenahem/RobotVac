@@ -1,3 +1,6 @@
+#ifndef _PRINTHELPER_H_
+#define _PRINTHELPER_H_
+
 #include "SimulationPrintUtils.h"
 #include "House.h"
 
@@ -12,3 +15,5 @@ private:
 	House * ptrHouse;
 	Point * ptrDock;
 };
+
+#endif

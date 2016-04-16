@@ -5,7 +5,8 @@
 #include "KeyboardAlgo.h"
 #include "Point.h"
 #include "Sensor.h"
-
+#include <list>
+using namespace std;
 
 // Class forward decleration
 class House;
@@ -27,6 +28,7 @@ public:
 	int getCompetitionScore(){ return competitonScore; }
 	void setCompetitionScore(int score){ competitonScore = score; }
 	EndReason getEndReason(){ return endreason; }
+	list<string> convertMovesListToMovesStringList();
 
 private:
 	EndReason endreason;
@@ -45,10 +47,15 @@ private:
 	KeyboardAlgo* algo;				// Algorithem to track
 	PrintHelper printHelper;		// Print Helper 
 	House  house;					// House of tracker 
-
+	list<Direction> movesList;
+	
 	bool checkValidStep(Direction direction);
 	void moveByDirection(Direction direction);
 	void restartTracker();
+	void addMoveToMovesList(const Direction& dir);
+	string convertDirectionSequenceToString(Direction dir, int sequenceCount);
+
+
 };
 
 

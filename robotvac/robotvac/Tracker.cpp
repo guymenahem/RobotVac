@@ -1,4 +1,6 @@
 #include "Tracker.h"
+#include "Menus.h" 
+#include <string.h>
 
 void Tracker::initTracker(House _house, KeyboardAlgo* _algo)
 {
@@ -33,6 +35,7 @@ void Tracker::step()
 		this->moveByDirection(direction);
 		this->numOfSteps++;
 		this->battery -= BATTERY_CONSUMPTION_RATE;
+		this->addMoveToMovesList(direction);
 
 		// Clean the dirt
 		if (house.Clean(curLocation))
@@ -84,6 +87,10 @@ bool Tracker::isGameFinished()
 		this->printHelper.PrintPoint(curLocation, '@');
 		this->returnedToDockingOnFinish = true;
 		this->endreason = EndReason::FinishClean;
+		// TODO : add logic to save solution file
+		//			1) Function that search if need to be save/not exist
+		//			2) Save if best solution
+
 		return true;
 	}
 
@@ -103,53 +110,44 @@ bool Tracker::isGameFinished()
 	}
 
 	// If user pressed ESC
+
+	// TODO : change to menu, add the algorithm for save the solution and exit
 	if (this->algo->getLastKey() == '\x1b')
 	{
 		this->algo->clearLastkey();
-		SimulationPrintUtils::printSecondaryMenu();
-		
-		bool selectionMade = false;
+		// SimulationPrintUtils::printSecondaryMenu();
+		SeconderyMenuState menuState = Menus::SeconderyMenu();
 
-		while (_kbhit)
+		switch (menuState)
 		{
-			char key = _getch();
+			// just continue
+		case SeconderyMenuState::Continue:
+			return false;
 
-			switch (key)
-			{
-					// just continue
-				case '1':
-					// Clear the screen the print last house known - maybe in the future
-					selectionMade = true;
-					return false;
-					//break;
+			// Restart this house simulation
+		case SeconderyMenuState::Restart:
+			clear_screen();
+			this->endreason = EndReason::Restart;
+			return true;
 
-					// Restart this house simulation
-				case '2':
-					clear_screen();
-					this->endreason = EndReason::Restart;
-					selectionMade = true;
-					return true;
-					//break;
+			// Go to main menu
+		case SeconderyMenuState::MainMenu:
+			this->endreason = EndReason::MainMenu;
+			return true;
 
-					// Go to main menu
-				case '3':
-					this->endreason = EndReason::MainMenu;
-					selectionMade = true;
-					return true;
-					//break;
+		case SeconderyMenuState::SaveGame:
+			// Logic to save Game
+			return false;
 
-				// Exit
-				case '9':
-					clear_screen();
-					this->endreason = EndReason::UserAbort;
-					selectionMade = true;
-					return true;
-					//break;
-			}
+			// Exit
+		case SeconderyMenuState::Exit:
+			clear_screen();
+			this->endreason = EndReason::UserAbort;
+			return true;
 		}
+
 	}
 		
-
 	return false;
 }
 
@@ -194,6 +192,74 @@ void Tracker::moveByDirection(Direction direction)
 		break;
 	}
 }
+
+void Tracker::addMoveToMovesList(const Direction& dir)
+{
+	this->movesList.push_back(dir);
+}
+
+list<string> Tracker::convertMovesListToMovesStringList()
+{
+	list<string> lst;
+	int directionSequenceCounter = 0;
+	Direction curDirSequence = this->movesList.front();
+
+	for each (Direction dir in this->movesList)
+	{
+		if (dir == curDirSequence)
+		{
+			directionSequenceCounter++;
+		}
+		else
+		{
+			
+			lst.push_back(convertDirectionSequenceToString(curDirSequence,directionSequenceCounter));
+			directionSequenceCounter = 1;
+			curDirSequence = dir;
+		}
+		
+	}
+	
+	// insert last direction seq to list
+	lst.push_back(convertDirectionSequenceToString(curDirSequence, directionSequenceCounter));
+
+	return lst;
+}
+
+string Tracker::convertDirectionSequenceToString(Direction dir, int sequenceCount)
+{
+	string dirString;
+
+	switch (dir)
+	{
+	case(Direction::East) :
+		dirString = 'd';
+		break;
+	case(Direction::West) :
+		dirString = 'a';
+		break;
+	case(Direction::North) :
+		dirString = 'w';
+		break;
+	case(Direction::South) :
+		dirString = 'x';
+		break;
+	case(Direction::Stay) :
+		dirString = 's';
+		break;
+	default:
+		break;
+	}
+	
+	string s = "";
+	s.append(to_string(sequenceCount));
+	s.append(":");
+	s.append(dirString);
+
+	return s;
+}
+
+
 
 
 

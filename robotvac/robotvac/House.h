@@ -13,6 +13,7 @@ public:
 
 	//Constructor
 	House(char _shortName[], char _longName[], int height, int width, char** house);
+	House(const char* name, int height, int width, int _numberOfSteps, char** house);
 	House(){}
 	// Functions
 	struct SensorInformation Sense(Point location);
@@ -32,6 +33,7 @@ private:
 	char longName[LONG_NAME_LEN];
 	int height;
 	int width;
+	int numberOfSteps;
 	unsigned int totalDirt;
 	char ** curHouse;
 

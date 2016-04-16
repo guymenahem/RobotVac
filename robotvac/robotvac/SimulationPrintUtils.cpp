@@ -13,7 +13,7 @@ void SimulationPrintUtils::printSecondaryMenu()
 	gotoxy(0, 25);
 	cout << EMPTY_LINE;
 	gotoxy(0, 25);
-	cout << "1-continue " << "2-restart " << "3-go to main menu " << "9-exit " << endl;
+	cout << "1-continue " << "2-restart " << "3-go to main menu " << " 4-save game"<< " 9-exit " << endl;
 }
 
 void SimulationPrintUtils::printRoundDetails(int roundNum, int totalDustInHouse, int totalCollected, int batteryState)
@@ -41,7 +41,7 @@ void SimulationPrintUtils::printInsruction()
 	cout << "use 'x' - for down" << endl;
 	cout << "use 's' - for stay" << endl;
 	cout << "make sure your keyboard is on english" << endl;
-	cout << "press 1 to start the game or 9 to exit";
+	cout << "Press any key to continue";
 }
 
 void SimulationPrintUtils::printInvalidStep()
