@@ -1,6 +1,7 @@
 #ifndef _SIMUlATIONPRINTUTILS_H_
 #define _SIMUlATIONPRINTUTILS_H_
 #include "Conf.h"
+#include <list>
 #include "Point.h"
 #include "ConsoleUtils.h"
 #include <iostream>
@@ -10,6 +11,8 @@ class SimulationPrintUtils
 public:
 	static void printInitialMenu();
 	static void printSecondaryMenu();
+	static void printSelectHouseMenu(list<string> lst);
+	static void printFileNotFound();
 	static void printSaveMenu();
 	static void clearSecondaryMenu();
 	static void SimulationPrintUtils::printSaveOverrideMenu();

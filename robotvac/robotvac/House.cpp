@@ -31,7 +31,7 @@ House::House(const char* name, const char* gameNumber, int height, int width, in
 	for (int i = 0; i < height; i++)
 	{
 		curHouse[i] = new char[width];
-		strncpy(curHouse[i], house[i],width);
+		strncpy(curHouse[i], house[i], width);
 	}
 
 	this->repairHouse();
@@ -167,9 +167,10 @@ int House::getTotalDirtLeft()
 // Check if house is valid for simulation
 HouseValidation House::isValidHouse()
 {
+
 	if (this->width < 10 || this->width > 79)
 		return HouseValidation::InvalidSize;
-	if (this->height < 5 || this->height > 20)
+	if (this->height < MIN_HOUSE_LEN || this->height > MAX_HOUSE_LEN)
 		return HouseValidation::InvalidSize;
 
 

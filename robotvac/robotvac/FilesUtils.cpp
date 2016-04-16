@@ -1,5 +1,6 @@
 #include "FilesUtils.h"
 #include <string.h>
+#include "Conf.h"
 
 using namespace std;
 
@@ -39,6 +40,7 @@ House FilesUtils::loadHouseFromFile(string fileName)
 	char temp[80];
 	char* board[24];
 	int numberOfSteps,height,width;
+	size_t i;
 
 	ifstream inFile(fileName, ios::in);
 
@@ -56,11 +58,33 @@ House FilesUtils::loadHouseFromFile(string fileName)
 
 	gameNumber = fileName.substr(0, 3);
 
-	for (size_t i = 0; i < height; i++)
+
+	// For every line in board
+	for (i = 0; (i < height) && (!inFile.eof()); i++)
 	{
 		inFile.getline(temp, 80);
+		// Allocate another board line
 		board[i] = new char[width];
-		strncpy(board[i],temp,width);
+		
+		// If line in file smaller than line in game
+		if (strlen(temp) < width)
+		{
+			// Fille end with blanks
+			strncat(temp, EMPTY_LINE.c_str(), width - strlen(temp));
+		}
+
+		strncpy(board[i], temp, width);
+	}
+
+	// If exit not bcause of eof
+	if ((i < height) && (inFile.eof()))
+	{
+		// Fill the other lines in blanks
+		for (; (i < height); i++)
+		{
+			board[i] = new char[width];
+			strncpy(board[i], EMPTY_LINE.c_str(), width);
+		}
 	}
 
 	inFile.close();

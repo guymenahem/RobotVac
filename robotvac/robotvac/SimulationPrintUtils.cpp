@@ -5,15 +5,36 @@ using  namespace std;
 void SimulationPrintUtils::printInitialMenu()
 {
 	cout << "1-start run" << endl;
+	cout << "2-selcet house to start" << endl;
 	cout << "8-show instructions" << endl;
 	cout << "9-exit" << endl;
 }
+
 void SimulationPrintUtils::printSecondaryMenu()
 {
 	gotoxy(0, 25);
 	cout << EMPTY_LINE;
 	gotoxy(0, 25);
 	cout << "1-continue " << "2-restart " << "3-go to main menu " << " 4-save game"<< " 9-exit " << endl;
+}
+
+void SimulationPrintUtils::printSelectHouseMenu(list<string> lst)
+{
+	clear_screen();
+	cout << "Please select house to start from:" << endl;
+	cout << " 3 - Digits ti select House:" << endl;
+	cout << " x - to exit:" << endl << endl;;
+
+
+	for each(string str in lst)
+	{
+		cout << str << endl;
+	}
+}
+
+void SimulationPrintUtils::printFileNotFound()
+{
+	cout << "File not found, please enter another one" <<endl;
 }
 
 void SimulationPrintUtils::printSaveMenu()
@@ -91,21 +112,23 @@ void SimulationPrintUtils::printInvalidHouse(HouseValidation invalidProblem)
 	switch (invalidProblem)
 	{
 	case HouseValidation::InvalidSize:
-		cout << "House is not valid - invlalid size" << endl;
+		cout << "House is not valid - invlalid size" << " - Enter any key to continue" << endl;
 		break;
 
 	case HouseValidation::TooMuchDociking:
-		cout << "House is not valid - too much docking in the house" << endl;
+		cout << "House is not valid - too much docking in the house" << " - Enter any key to continue" << endl;
 		break;
 
 	case HouseValidation::NoDocking:
-		cout << "House is not valid - docking not found" << endl;
+		cout << "House is not valid - docking not found" << " - Enter any key to continue" << endl;
 		break;
 
 	default:
-		cout << "House is not valid" << endl;
+		cout << "House is not valid" << " - Enter any key to continue" << endl;
 		break;
 	}
+
+	getch();
 }
 
 void SimulationPrintUtils::printPointOnMovedHouse(int rows,

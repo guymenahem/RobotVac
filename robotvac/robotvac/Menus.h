@@ -3,10 +3,12 @@
 
 #include "ConsoleUtils.h"
 #include "SimulationPrintUtils.h"
+#include "FilesUtils.h"
 #include <string.h>
+#include <list>
 
 
-enum class MainMenuState{ Start, Instruction, Exit };
+enum class MainMenuState{ Start, StartFromHouse, Instruction, Exit };
 enum class SeconderyMenuState{Continue, Restart, MainMenu, SaveGame, Exit};
 
 class Menus
@@ -14,119 +16,19 @@ class Menus
 
 
 public:
-	static MainMenuState mainMenu()
-	{
-		char input;
+	static MainMenuState mainMenu();
 
-		clear_screen();
-		SimulationPrintUtils::printInitialMenu();
+	static SeconderyMenuState seconderyMenu();
 
-		input = getch();
+	static string saveGameMenu();
 
-		switch (input)
-		{
-		// Start Simulation
-		case '1':
-			return MainMenuState::Start;
+	static void instructionMenu();
 
-		// Open Instrucation
-		case '8':
-			return MainMenuState::Instruction;
+	static bool overrideMenu();
 
-		// Exit
-		case '9':
-		default:
-			return MainMenuState::Exit;
-		}
+	static void clearSeconderyMenu();
 
-
-	}
-
-	static SeconderyMenuState seconderyMenu()
-	{
-		char input;
-
-		SimulationPrintUtils::printSecondaryMenu();
-
-		input = getch();
-
-		while (true)
-		{
-			switch (input)
-			{
-				// Start Simulation
-			case '1':
-				return SeconderyMenuState::Continue;
-
-				// Open Instrucation
-			case '2':
-				return SeconderyMenuState::Restart;
-
-			case '3':
-				return SeconderyMenuState::MainMenu;
-
-			case '4':
-				return SeconderyMenuState::SaveGame;
-
-				// Exit
-			case '9':
-				return SeconderyMenuState::Exit;
-
-			default:
-				input = getch();
-			}
-		}
-	}
-
-	static string saveGameMenu()
-	{
-		string fileName;
-
-		while (true)
-		{
-			SimulationPrintUtils::printSaveMenu();
-			cin >> fileName;
-
-			if (fileName != "")
-			{ 
-				return fileName;
-			}
-		}
-
-	}
-
-	static void instructionMenu()
-	{
-		clear_screen();
-		SimulationPrintUtils::printInsruction();
-		getch();
-	}
-
-	static bool overrideMenu()
-	{
-		char input;
-		SimulationPrintUtils::printSaveOverrideMenu();
-
-		input = getch();
-
-		while (true)
-		{
-			switch (input)
-			{
-			case '1':
-				return true;
-			case '2':
-				return false;
-			default:
-				input = getch();
-			}
-		}
-	}
-
-	static void clearSeconderyMenu()
-	{
-		SimulationPrintUtils::clearSecondaryMenu();
-	}
+	static list<string> selectHouseToStart();
 };
 
 #endif

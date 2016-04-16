@@ -21,6 +21,8 @@ public:
 		keyAlgo = algo;
 	}
 	void prepareSimultaion();
+	void prepareSimultaion(string fromHouse);
+	void loadHousesByFilesNames(const list<string>& lstFiles);
 	void start();
 	void endSimulation();
 	void restartSimultaion();
@@ -32,10 +34,12 @@ private:
 
 	// Private Data Members
 	KeyboardAlgo keyAlgo;
-	House house;
+	House curHouse;
 	Tracker tracker;
 	SimulationState state;
 	int winnerNumStpes;
+	list<string> lstHousesNames;
+
 
 	// Private Functions
 	void loadHouses();

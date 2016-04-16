@@ -29,7 +29,7 @@ enum WallInfo { North = 0, South = 1, East = 2, West = 3 };
 enum { DOCKING = 'D', WALL = 'W' };
 enum EndReason{ StepIntoWall, FinishClean, BatteryDied, maxStepsDone, Restart, UserAbort, MainMenu };
 enum SimulationState{NotPrepared, Ready, Running, Finished, WaitForRestart,GoToMainMenu};
-enum HouseValidation{ Valid, InvalidSize, TooMuchDociking, NoDocking };
+enum HouseValidation{ Valid, InvalidSize, TooMuchDociking, NoDocking ,InvalidFileReading};
 
 
 #define WINDOWS
