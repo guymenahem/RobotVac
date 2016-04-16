@@ -12,6 +12,7 @@ const int MIN_HOUSE_LEN = 5;
 const int MAX_HOUSE_LEN = 20;
 const int MIN_HOUSE_WID = 10;
 const int MAX_HOUSE_WID = 79;
+const int GAME_DIGIT_NUM = 4;
 
 // Game configuraion
 const int MAX_STEPS = 1500;

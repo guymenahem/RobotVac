@@ -9,13 +9,12 @@
 enum class MainMenuState{ Start, Instruction, Exit };
 enum class SeconderyMenuState{Continue, Restart, MainMenu, SaveGame, Exit};
 
-
 class Menus
 {
 
 
 public:
-	static MainMenuState MainMenu()
+	static MainMenuState mainMenu()
 	{
 		char input;
 
@@ -43,7 +42,7 @@ public:
 
 	}
 
-	static SeconderyMenuState SeconderyMenu()
+	static SeconderyMenuState seconderyMenu()
 	{
 		char input;
 
@@ -79,20 +78,55 @@ public:
 		}
 	}
 
-	string SaveGameMenu()
+	static string saveGameMenu()
 	{
+		string fileName;
+
+		while (true)
+		{
+			SimulationPrintUtils::printSaveMenu();
+			cin >> fileName;
+
+			if (fileName != "")
+			{ 
+				return fileName;
+			}
+		}
 
 	}
 
-	static void InstructionMenu()
+	static void instructionMenu()
 	{
 		clear_screen();
 		SimulationPrintUtils::printInsruction();
 		getch();
 	}
 
+	static bool overrideMenu()
+	{
+		char input;
+		SimulationPrintUtils::printSaveOverrideMenu();
 
+		input = getch();
 
+		while (true)
+		{
+			switch (input)
+			{
+			case '1':
+				return true;
+			case '2':
+				return false;
+			default:
+				input = getch();
+			}
+		}
+	}
+
+	static void clearSeconderyMenu()
+	{
+		SimulationPrintUtils::clearSecondaryMenu();
+	}
 };
 
 #endif

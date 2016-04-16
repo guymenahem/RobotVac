@@ -54,8 +54,8 @@ private:
 	void restartTracker();
 	void addMoveToMovesList(const Direction& dir);
 	string convertDirectionSequenceToString(Direction dir, int sequenceCount);
-
-
+	void saveCurrentGame();
+	void saveSolutionIfBest();
 };
 
 

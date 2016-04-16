@@ -1,5 +1,6 @@
 #include "Tracker.h"
 #include "Menus.h" 
+#include "FilesUtils.h"
 #include <string.h>
 
 void Tracker::initTracker(House _house, KeyboardAlgo* _algo)
@@ -87,9 +88,7 @@ bool Tracker::isGameFinished()
 		this->printHelper.PrintPoint(curLocation, '@');
 		this->returnedToDockingOnFinish = true;
 		this->endreason = EndReason::FinishClean;
-		// TODO : add logic to save solution file
-		//			1) Function that search if need to be save/not exist
-		//			2) Save if best solution
+		this->saveSolutionIfBest();
 
 		return true;
 	}
@@ -110,15 +109,13 @@ bool Tracker::isGameFinished()
 	}
 
 	// If user pressed ESC
-
-	// TODO : change to menu, add the algorithm for save the solution and exit
 	if (this->algo->getLastKey() == '\x1b')
 	{
 		this->algo->clearLastkey();
 		// SimulationPrintUtils::printSecondaryMenu();
-		SeconderyMenuState menuState = Menus::SeconderyMenu();
+		SeconderyMenuState secMenuState = Menus::seconderyMenu();
 
-		switch (menuState)
+		switch (secMenuState)
 		{
 			// just continue
 		case SeconderyMenuState::Continue:
@@ -136,7 +133,7 @@ bool Tracker::isGameFinished()
 			return true;
 
 		case SeconderyMenuState::SaveGame:
-			// Logic to save Game
+			this->saveCurrentGame();
 			return false;
 
 			// Exit
@@ -257,6 +254,33 @@ string Tracker::convertDirectionSequenceToString(Direction dir, int sequenceCoun
 	s.append(dirString);
 
 	return s;
+}
+
+void Tracker::saveCurrentGame()
+{
+	string fileName = Menus::saveGameMenu();
+	
+	if (FilesUtils::isSavedGameExist(fileName, this->house.getHouseNumber()))
+	{
+		if (Menus::overrideMenu())
+		{
+			FilesUtils::writeSaveToFile(this->convertMovesListToMovesStringList(), this->house.getHouseNumber(), fileName);
+		}
+	}
+	else
+	{
+		FilesUtils::writeSaveToFile(this->convertMovesListToMovesStringList(), this->house.getHouseNumber(), fileName);
+	}
+
+	Menus::clearSeconderyMenu();
+}
+
+void Tracker::saveSolutionIfBest()
+{
+	if (!FilesUtils::isThereBetterSol(this->house.getHouseNumber(), this->numOfSteps))
+	{
+		FilesUtils::writeSoultionToFile(this->convertMovesListToMovesStringList(), this->getNumOfSteps(), this->house.getHouseNumber());
+	}
 }
 
 

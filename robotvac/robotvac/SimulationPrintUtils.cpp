@@ -16,6 +16,36 @@ void SimulationPrintUtils::printSecondaryMenu()
 	cout << "1-continue " << "2-restart " << "3-go to main menu " << " 4-save game"<< " 9-exit " << endl;
 }
 
+void SimulationPrintUtils::printSaveMenu()
+{
+	gotoxy(0, 25);
+	cout << EMPTY_LINE;
+	gotoxy(0, 26);
+	cout << EMPTY_LINE;
+	gotoxy(0, 25);
+	cout << "Please enter name for game save:" << endl;
+}
+
+void SimulationPrintUtils::printSaveOverrideMenu()
+{
+	gotoxy(0, 25);
+	cout << EMPTY_LINE;
+	gotoxy(0, 26);
+	cout << EMPTY_LINE;
+	gotoxy(0, 25);
+	cout << "Are you sure you want to override the saved game? 1 - YES     2 - NO" << endl;
+}
+
+void SimulationPrintUtils::clearSecondaryMenu()
+{
+	gotoxy(0, 25);
+	cout << EMPTY_LINE;
+	gotoxy(0, 26);
+	cout << EMPTY_LINE;
+	gotoxy(0, 27);
+	cout << EMPTY_LINE;
+}
+
 void SimulationPrintUtils::printRoundDetails(int roundNum, int totalDustInHouse, int totalCollected, int batteryState)
 {
 	gotoxy(0, 25);

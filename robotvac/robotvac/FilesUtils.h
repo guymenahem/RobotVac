@@ -28,8 +28,10 @@ static bool isValidSolutionName(string name);
 static bool isThereBetterSol(string houseNumber, int numOfSteps);
 
 // Saved Games
+static void writeSaveToFile(const list<string>& lstDirections,const string houseNumber,const string name);
 static list<string> getAllSavedGames(string houseNumber);
 static bool isVaildSavedName(string name, string houseNumber);
+static bool isSavedGameExist(string name, string gameNumber);
 
 
 };

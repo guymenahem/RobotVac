@@ -19,7 +19,7 @@ int main()
 	bool exit = false;
 	HouseValidation houseValidation = HouseValidation::InvalidSize;
 
-	MainMenuState mainMenuState = Menus::MainMenu();
+	MainMenuState mainMenuState = Menus::mainMenu();
 
 
 
@@ -52,7 +52,7 @@ int main()
 
 				if (simulation.getState() == SimulationState::GoToMainMenu)
 				{
-					mainMenuState = Menus::MainMenu();
+					mainMenuState = Menus::mainMenu();
 				}
 				if (simulation.getState() == SimulationState::Finished)
 				{
@@ -73,8 +73,8 @@ int main()
 
 		// Choose instruction
 		case MainMenuState::Instruction:
-			Menus::InstructionMenu();
-			mainMenuState = Menus::MainMenu();
+			Menus::instructionMenu();
+			mainMenuState = Menus::mainMenu();
 			break;
 
 		// Choose exit

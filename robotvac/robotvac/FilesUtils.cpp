@@ -35,6 +35,7 @@ list<string> FilesUtils::getHousesListInFolder()
 House FilesUtils::loadHouseFromFile(string fileName)
 {
 	string name;
+	string gameNumber;
 	char temp[80];
 	char* board[24];
 	int numberOfSteps,height,width;
@@ -53,6 +54,7 @@ House FilesUtils::loadHouseFromFile(string fileName)
 	inFile.getline(temp, 80);
 	width = stoi(temp);
 
+	gameNumber = fileName.substr(0, 3);
 
 	for (size_t i = 0; i < height; i++)
 	{
@@ -63,7 +65,7 @@ House FilesUtils::loadHouseFromFile(string fileName)
 
 	inFile.close();
 
-	House house(name.c_str(), height, width,numberOfSteps, board);
+	House house(name.c_str(),gameNumber.c_str(), height, width,numberOfSteps, board);
 
 	return house;
 
@@ -247,7 +249,7 @@ bool FilesUtils::isThereSolution(string houseNumber)
 	return false;
 }
 
-bool IsThereBetterSol(string houseNumber, int numOfSteps)
+bool FilesUtils::isThereBetterSol(string houseNumber, int numOfSteps)
 {
 	list<string> lstSols = FilesUtils::getAllSolutions();
 
@@ -276,4 +278,54 @@ bool IsThereBetterSol(string houseNumber, int numOfSteps)
 	}
 
 	return false;
+}
+
+void FilesUtils::writeSaveToFile(const list<string>& lstDirections, const string houseNumber, const string name)
+{
+	string fileName = houseNumber + "-" + name + ".house_saved";
+
+	ofstream outFile(fileName, ios::out | ios::trunc);
+
+	for each (string direction in lstDirections)
+	{
+		outFile << direction << endl;
+	}
+
+	outFile.close();
+}
+
+bool FilesUtils::isSavedGameExist(string name, string gameNumber)
+{
+	list<string> listNames;
+	string str;
+	int counter = -1;
+	string command = "dir /b " + gameNumber + "-" + name + ".house_saved" + " > House_saved.txt 2>nul";
+
+	system(command.c_str());
+	//system("dir /b .\\Houses\\*.House > Houses\\House_names.txt");
+
+	ifstream names_of_files_in_dir("House_saved.txt");
+	const size_t buff_size = 1024;
+	char buff[buff_size];
+	while (!names_of_files_in_dir.eof()) {
+		names_of_files_in_dir.getline(buff, buff_size - 1);
+		str = buff;
+
+		counter++;
+	}
+
+	// Close the Houses list file
+	names_of_files_in_dir.close();
+
+	// Delete the files
+	system("del House_saved.txt");
+
+	if (counter == 0)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
 }

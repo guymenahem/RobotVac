@@ -10,6 +10,9 @@ class SimulationPrintUtils
 public:
 	static void printInitialMenu();
 	static void printSecondaryMenu();
+	static void printSaveMenu();
+	static void clearSecondaryMenu();
+	static void SimulationPrintUtils::printSaveOverrideMenu();
 	static void printRoundDetails(int roundNum,
 		int totalDustInHouse,
 		int totalCollected, int batteryState);

@@ -19,11 +19,12 @@ House::House(char _shortName[], char _longName[], int height, int width, char **
 	this->repairHouse();
 }
 
-House::House(const char* name, int height, int width, int _numberOfSteps, char** house)
+House::House(const char* name, const char* gameNumber, int height, int width, int _numberOfSteps, char** house)
 	:height(height), width(width), numberOfSteps(_numberOfSteps)
 {
 	strcpy(shortName, name);
 	strcpy(longName, name);
+	strcpy(this->gameNumber, gameNumber);
 	curHouse = new char*[height];
 
 	// Init copy of house
