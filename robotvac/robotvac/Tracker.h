@@ -18,7 +18,7 @@ public:
 	//Tracker(House _house, KeyboardAlgo* _algo);
 	Tracker(){}
 	void step();
-	void initTracker(const House _house, KeyboardAlgo* _algo);
+	void initTracker(House _house, KeyboardAlgo* _algo);
 	int getNumOfClearedDirt(){ return numOfCleared; }
 	int getNumOfSteps(){ return numOfSteps; }
 	int getNumOfInitialDirt(){ return initialAmountOfDirt; }
@@ -29,6 +29,8 @@ public:
 	void setCompetitionScore(int score){ competitonScore = score; }
 	EndReason getEndReason(){ return endreason; }
 	list<string> convertMovesListToMovesStringList();
+	void restoreHouseGame();
+	void showHouseSolution();
 
 private:
 	EndReason endreason;
@@ -47,6 +49,7 @@ private:
 	KeyboardAlgo* algo;				// Algorithem to track
 	PrintHelper printHelper;		// Print Helper 
 	House  house;					// House of tracker 
+	House originalHouse;            // original house of tracker (for restore use)
 	list<Direction> movesList;
 	
 	bool checkValidStep(Direction direction);
@@ -56,6 +59,8 @@ private:
 	string convertDirectionSequenceToString(Direction dir, int sequenceCount);
 	void saveCurrentGame();
 	void saveSolutionIfBest();
+	list<Direction> convertSolutionStringListToSolutionDirectionList(list<string> solList);
+	bool ShowSecondaryMenu();
 };
 
 

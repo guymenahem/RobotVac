@@ -2,14 +2,14 @@
 #include "SimulationPrintUtils.h"
 
 
-PrintHelper::PrintHelper(House * _ptrHouse, Point * _ptrDock)
+PrintHelper::PrintHelper(House * _ptrHouse)
 {
 	ptrHouse = _ptrHouse;
-	ptrDock = _ptrDock;
+	ptrDock = ptrHouse->getFirstDockingLocation();
 }
 
 
 void PrintHelper::PrintPoint(Point point, char charToPrint)
 {
-	SimulationPrintUtils::printPointOnMovedHouse(ptrHouse->getHeight(), ptrHouse->getWidth(), point, *ptrDock, charToPrint);
+	SimulationPrintUtils::printPointOnMovedHouse(ptrHouse->getHeight(), ptrHouse->getWidth(), point, ptrDock, charToPrint);
 }

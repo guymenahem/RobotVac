@@ -86,12 +86,12 @@ void KeyboardAlgo::printSensorInfo(struct SensorInformation info, Point location
 		ptrPrintHelp->PrintPoint(Point(location.getX() - 1, location.getY()), 'W');
 	if (info.isWall[WallInfo::East])
 		ptrPrintHelp->PrintPoint(Point(location.getX() + 1, location.getY()), 'W');
-	ptrPrintHelp->PrintPoint(location, '@');
+	ptrPrintHelp->PrintPoint(location, VACUUM_CHAR);
 }
 
 void KeyboardAlgo::printCurLocation()
 {
-	ptrPrintHelp->PrintPoint(*(this->ptrSensor->getCurrentLocation()), '@');
+	ptrPrintHelp->PrintPoint(*(this->ptrSensor->getCurrentLocation()), VACUUM_CHAR);
 }
 
 bool KeyboardAlgo::checkIfStepIsValid(Direction direction, struct SensorInformation sensorInfo)

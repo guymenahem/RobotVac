@@ -24,6 +24,8 @@ MainMenuState Menus::mainMenu()
 	case '2':
 		return MainMenuState::StartFromHouse;
 
+	case '3':
+		return MainMenuState::ContinueSavedGame;
 		// Open Instrucation
 	case '8':
 		return MainMenuState::Instruction;
@@ -58,10 +60,14 @@ SeconderyMenuState Menus::seconderyMenu()
 			return SeconderyMenuState::Restart;
 
 		case '3':
-			return SeconderyMenuState::MainMenu;
+			return SeconderyMenuState::SaveGame;
 
 		case '4':
-			return SeconderyMenuState::SaveGame;
+			return SeconderyMenuState::ShowSolution;
+
+		case '8':
+			return SeconderyMenuState::MainMenu;
+
 
 			// Exit
 		case '9':
@@ -124,6 +130,47 @@ void Menus::clearSeconderyMenu()
 }
 
 list<string> Menus::selectHouseToStart()
+{
+	string input, curHouse;
+	list<string> housesFilesList = FilesUtils::getHousesListInFolder();
+
+	SimulationPrintUtils::printSelectHouseMenu(housesFilesList);
+
+	cin >> input;
+
+	while (true)
+	{
+		if ((input[0] >= '0' && input[0] <= '9') &&
+			(input[1] >= '0' && input[1] <= '9') &&
+			(input[2] >= '0' && input[2] <= '9') &&
+			input.length() == 3)
+		{
+			while (!housesFilesList.empty())
+			{
+				curHouse = housesFilesList.front();
+
+				if (curHouse.substr(0, 3) == input)
+				{
+					return housesFilesList;
+				}
+
+				housesFilesList.pop_front();
+			}
+
+			SimulationPrintUtils::printFileNotFound();
+		}
+
+		if (input == "x")
+		{
+			return list<string>();
+		}
+
+		cin >> input;
+
+	}
+}
+
+string  Menus::selectSavedGame()
 {
 	string input, curHouse;
 	list<string> housesFilesList = FilesUtils::getHousesListInFolder();

@@ -37,6 +37,48 @@ House::House(const char* name, const char* gameNumber, int height, int width, in
 	this->repairHouse();
 	this->initTotalDirt();
 }
+House::House(const House& house)
+{
+	strcpy(shortName, house.shortName);
+	strcpy(longName, house.longName);
+	strcpy(this->gameNumber, house.gameNumber);
+	height = house.height;
+	width = house.width;
+	curHouse = new char*[house.height];
+	this->numberOfSteps = house.numberOfSteps;
+
+	// Init copy of house
+	for (int i = 0; i < house.height; i++)
+	{
+		curHouse[i] = new char[width];
+		strncpy(curHouse[i], house.curHouse[i], width);
+	}
+
+	this->repairHouse();
+	this->initTotalDirt();
+}
+
+
+void House::operator=(const House& _house)
+{
+	strcpy(shortName, _house.shortName);
+	strcpy(longName, _house.longName);
+	strcpy(this->gameNumber, _house.gameNumber);
+	height = _house.height;
+	width = _house.width;
+	curHouse = new char*[_house.height];
+	this->numberOfSteps = _house.numberOfSteps;
+
+	// Init copy of house
+	for (int i = 0; i < height; i++)
+	{
+		curHouse[i] = new char[width];
+		strncpy(curHouse[i], _house.curHouse[i], width);
+	}
+
+	this->repairHouse();
+	this->initTotalDirt();
+}
 
 // Sensing the House at location (x,y)
 struct SensorInformation House::Sense(Point location)

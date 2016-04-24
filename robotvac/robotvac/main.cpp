@@ -40,6 +40,11 @@ int main()
 			simulation.start();
 			break;
 
+		case MainMenuState::ContinueSavedGame:
+			//todo::need to let the user choose what game to continue.. and use "resotoreGame"
+			
+			break;
+
 		// Choose instruction
 		case MainMenuState::Instruction:
 			Menus::instructionMenu();

@@ -6,6 +6,7 @@ void SimulationPrintUtils::printInitialMenu()
 {
 	cout << "1-start run" << endl;
 	cout << "2-selcet house to start" << endl;
+	cout << "3-continue saved game"<< endl;
 	cout << "8-show instructions" << endl;
 	cout << "9-exit" << endl;
 }
@@ -15,7 +16,7 @@ void SimulationPrintUtils::printSecondaryMenu()
 	gotoxy(0, 25);
 	cout << EMPTY_LINE;
 	gotoxy(0, 25);
-	cout << "1-continue " << "2-restart " << "3-go to main menu " << " 4-save game"<< " 9-exit " << endl;
+	cout << "1-continue " << "2-restart "  << " 3-save game" << "4-show solution" << "8-go to main menu " << " 9-exit " << endl;
 }
 
 void SimulationPrintUtils::printSelectHouseMenu(list<string> lst)

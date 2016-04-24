@@ -8,8 +8,8 @@
 #include <list>
 
 
-enum class MainMenuState{ Start, StartFromHouse, Instruction, Exit };
-enum class SeconderyMenuState{Continue, Restart, MainMenu, SaveGame, Exit};
+enum class MainMenuState{ Start, StartFromHouse, ContinueSavedGame, Instruction, Exit };
+enum class SeconderyMenuState{Continue, Restart,SaveGame,ShowSolution,MainMenu, Exit};
 
 class Menus
 {
@@ -29,6 +29,8 @@ public:
 	static void clearSeconderyMenu();
 
 	static list<string> selectHouseToStart();
+
+	static list<string> selectSavedHouseToStart();
 };
 
 #endif

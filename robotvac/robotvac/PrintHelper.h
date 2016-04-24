@@ -8,12 +8,12 @@ class PrintHelper
 {
 public:
 	PrintHelper(){}
-	PrintHelper(House * _ptrHouse, Point* _ptrDock);
+	PrintHelper(House * _ptrHouse);
 	void PrintPoint(Point point, char charToPrint);
 
 private:
 	House * ptrHouse;
-	Point * ptrDock;
+	Point  ptrDock;
 };
 
 #endif

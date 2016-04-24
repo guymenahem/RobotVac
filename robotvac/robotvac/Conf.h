@@ -22,6 +22,7 @@ const int BATTERY_CONSUMPTION_RATE = 1;
 const int BATTERY_RECHARGE_RATE = 20;
 const string EMPTY_LINE = "                                                                                 ";
 const int SLEEP_TIME = 500;
+const char VACUUM_CHAR = '@';
 
 // Enums
 enum class Direction { North = 0, South = 1, East = 2, West = 3, Stay };

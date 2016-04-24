@@ -14,6 +14,7 @@ public:
 	//Constructor
 	House(char _shortName[], char _longName[], int height, int width, char** house);
 	House(const char* name, const char* gameNumber, int height, int width, int _numberOfSteps, char** house);
+	House(const House& house);
 	House(){}
 	// Functions
 	struct SensorInformation Sense(Point location);
@@ -28,6 +29,7 @@ public:
 	char getPointInfo(Point location);
 	char* getHouseNumber(){ return gameNumber; }
 	int getTotalDirtLeft();
+	void operator=(const House& _house);
 
 private:
 	char shortName[SHORT_NAME_LEN];
