@@ -17,6 +17,7 @@ public:
 	bool isGameFinished();
 	//Tracker(House _house, KeyboardAlgo* _algo);
 	Tracker(){}
+	~Tracker();
 	void step();
 	void initTracker(House _house, KeyboardAlgo* _algo);
 	int getNumOfClearedDirt(){ return numOfCleared; }
@@ -30,11 +31,14 @@ public:
 	EndReason getEndReason(){ return endreason; }
 	list<string> convertMovesListToMovesStringList();
 	void restoreHouseGame();
+	void restoreHouseGame(House& _originalHouse, KeyboardAlgo* _algo);
 	void showHouseSolution();
+	void initSavedGameMoves(list<string> movesList);
 
 private:
 	EndReason endreason;
 	bool abortGame;
+	bool isInited = false;			// Is Inited
 	int battery;					// Batery Left
 	int score;						// Score for algorithem 
 	int numOfCleared;				// Num of cleared dirt

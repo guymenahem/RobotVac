@@ -32,7 +32,8 @@ static void writeSaveToFile(const list<string>& lstDirections,const string house
 static list<string> getAllSavedGames(string houseNumber);
 static bool isVaildSavedName(string name, string houseNumber);
 static bool isSavedGameExist(string name, string gameNumber);
-
+static bool isSavedGameExist(string gameNumber);
+static list<string> readSavedGameFromFile(string houseNumber);
 
 };
 

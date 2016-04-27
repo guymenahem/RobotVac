@@ -19,10 +19,23 @@ void Tracker::initTracker(House _house, KeyboardAlgo* _algo)
 	dirtLeftToClean = this->house.getTotalDirtLeft();
 	initialAmountOfDirt = dirtLeftToClean;
 	printHelper = PrintHelper(&(house));
-	Sensor* newSens = new Sensor(&(house), &(curLocation));
-	algo->setSensor(newSens);
 	algo->setPrintHelper(&printHelper);
 	returnedToDockingOnFinish = false;
+	
+	if (isInited)
+	{
+		this->algo->clearHelpers();
+		this->isInited = true;
+	}
+
+	Sensor* newSens = new Sensor(&(house), &(curLocation));
+	algo->setSensor(newSens);
+}
+
+Tracker::~Tracker()
+{
+	if (isInited)
+		this->algo->clearHelpers();
 }
 
 void Tracker::step()
@@ -53,7 +66,7 @@ void Tracker::step()
 			battery += BATTERY_RECHARGE_RATE;
 		}
 
-		SimulationPrintUtils::printRoundDetails(numOfSteps, this->dirtLeftToClean, this->numOfCleared, this->battery);
+		SimulationPrintUtils::printRoundDetails(house.getHouseNumber(),numOfSteps, this->dirtLeftToClean, this->numOfCleared, this->battery,this->house.getMaxSteps());
 	}
 	else
 	{
@@ -96,7 +109,7 @@ bool Tracker::isGameFinished()
 	}
 
 	// Check if done more then max steps
-	if (this->numOfSteps >= MAX_STEPS)
+	if (this->numOfSteps >= MAX_STEPS || this->numOfSteps >= this->house.getMaxSteps())
 	{
 		this->printHelper.PrintPoint(curLocation, VACUUM_CHAR);
 		this->endreason = EndReason::maxStepsDone;
@@ -176,10 +189,21 @@ void Tracker::showHouseSolution()
 {
 	list<string> solutionFromFile = FilesUtils::readSolutionFromFile(this->house.getHouseNumber());
 	clear_screen();
+	gotoxy(35, 12);
+	cout << "watch and learn.. ";
+	Sleep(500);
+	clear_screen();
 	SolutionDisplayer solDisplayer(this->originalHouse, convertSolutionStringListToSolutionDirectionList(solutionFromFile));
 	solDisplayer.StartDisplay();
 	clear_screen();
+	gotoxy(35, 12);
+	cout << "ready ";
+	Sleep(300);
+	cout << "set ";
+	Sleep(300);
+	cout << "go ";
 	Sleep(500);
+	clear_screen();
 	this->restoreHouseGame();
 }
 
@@ -361,11 +385,15 @@ void Tracker::saveSolutionIfBest()
 }
 
 
-
 void Tracker::restoreHouseGame()
 {
+	this->restoreHouseGame(originalHouse, algo);
+}
+
+void Tracker::restoreHouseGame(House& _originalHouse, KeyboardAlgo* _algo)
+{
 	Sleep(600);
-	this->initTracker(originalHouse, algo);
+	this->initTracker(_originalHouse, _algo);
 
 	//restore game by dir list
 	list<Direction>::const_iterator iterator;
@@ -403,8 +431,13 @@ void Tracker::restoreHouseGame()
 			battery += BATTERY_RECHARGE_RATE;
 		}
 	}
+
 }
 
+void Tracker::initSavedGameMoves(list<string> movesList)
+{
+	this->movesList = this->convertSolutionStringListToSolutionDirectionList(movesList);
+}
 
 
 

@@ -14,7 +14,13 @@ void Simulation::prepareSimultaion()
 	this->state = SimulationState::Ready;
 }
 
+
 void Simulation::start()
+{
+	this->start(false, list<string>());
+}
+
+void Simulation::start(bool startFromSaved,list<string> savedMovesLst)
 {
 	string curHouseName;
 	SimulationState::Running;
@@ -32,8 +38,17 @@ void Simulation::start()
 		// check if house is valid for running
 		if (this->curHouse.isValidHouse() == HouseValidation::Valid)
 		{
-			// Set tracker for this house
-			tracker.initTracker(this->curHouse, &(this->keyAlgo));
+			if (!startFromSaved)// start normal
+			{
+				// Set tracker for this house
+				tracker.initTracker(this->curHouse, &(this->keyAlgo));
+			}
+			else// start from saved game
+			{
+				startFromSaved = false;
+				tracker.initSavedGameMoves(savedMovesLst);
+				tracker.restoreHouseGame(curHouse, &(this->keyAlgo));
+			}
 
 			// Until game not finished
 			while (!tracker.isGameFinished())
@@ -68,9 +83,15 @@ void Simulation::start()
 				break;
 
 			case EndReason::maxStepsDone:
+				SimulationPrintUtils::printMaxStepsDone();
+				this->state = SimulationState::GoToMainMenu;
+				return;
 				break;
 
 			case EndReason::BatteryDied:
+				SimulationPrintUtils::printBatteryDied();
+				this->state = SimulationState::GoToMainMenu;
+				return;
 				break;
 
 			case EndReason::FinishClean:
@@ -87,6 +108,8 @@ void Simulation::start()
 		}
 	}
 	
+	SimulationPrintUtils::printFinishLastHouse();
+
 	this->state = SimulationState::Finished;
 }
 
@@ -156,11 +179,18 @@ void Simulation::restartSimultaion()
 
 void Simulation::loadHousesByFilesNames(const list<string>& lstFiles)
 {
+	this->lstHousesNames.clear();
+
 	for each(string str in lstFiles)
 	{
 		this->lstHousesNames.push_back(str.data());
 	}
 }
+//
+//void Simulation::loadSavedGame()
+//{
+//	list<string> savedGame = FilesUtils::
+//}
 
 
 

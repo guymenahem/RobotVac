@@ -44,52 +44,63 @@ House FilesUtils::loadHouseFromFile(string fileName)
 
 	ifstream inFile(fileName, ios::in);
 
-	inFile.getline(temp, 80);
-	name = temp;
+	try{
 
-	inFile.getline(temp, 80);
-	numberOfSteps = stoi(temp);
-
-	inFile.getline(temp, 80);
-	height = stoi(temp);
-	
-	inFile.getline(temp, 80);
-	width = stoi(temp);
-
-	gameNumber = fileName.substr(0, 3);
-
-
-	// For every line in board
-	for (i = 0; (i < height) && (!inFile.eof()); i++)
-	{
 		inFile.getline(temp, 80);
-		// Allocate another board line
-		board[i] = new char[width];
-		
-		// If line in file smaller than line in game
-		if (strlen(temp) < width)
-		{
-			// Fille end with blanks
-			strncat(temp, EMPTY_LINE.c_str(), width - strlen(temp));
-		}
+		name = temp;
 
-		strncpy(board[i], temp, width);
-	}
+		inFile.getline(temp, 80);
+		numberOfSteps = stoi(temp);
 
-	// If exit not bcause of eof
-	if ((i < height) && (inFile.eof()))
-	{
-		// Fill the other lines in blanks
-		for (; (i < height); i++)
+		inFile.getline(temp, 80);
+		height = stoi(temp);
+
+		inFile.getline(temp, 80);
+		width = stoi(temp);
+
+		gameNumber = fileName.substr(0, 3);
+
+
+		// For every line in board
+		for (i = 0; (i < height) && (!inFile.eof()); i++)
 		{
+			inFile.getline(temp, 80);
+			// Allocate another board line
 			board[i] = new char[width];
-			strncpy(board[i], EMPTY_LINE.c_str(), width);
+
+			// If line in file smaller than line in game
+			if (strlen(temp) < width)
+			{
+				// Fille end with blanks
+				strncat(temp, EMPTY_LINE.c_str(), width - strlen(temp));
+			}
+
+			strncpy(board[i], temp, width);
 		}
+
+		// If exit not bcause of eof
+		if ((i < height) && (inFile.eof()))
+		{
+			// Fill the other lines in blanks
+			for (; (i < height); i++)
+			{
+				board[i] = new char[width];
+				strncpy(board[i], EMPTY_LINE.c_str(), width);
+			}
+		}
+	}
+	catch (std::invalid_argument e)
+	{
+		inFile.close();
+		return House("", "", 0, 0, 0, board, false);
 	}
 
 	inFile.close();
 
-	House house(name.c_str(),gameNumber.c_str(), height, width,numberOfSteps, board);
+	House house(name.c_str(),gameNumber.c_str(), height, width,numberOfSteps, board, true);
+
+	for (i = 0; i < height; i++)
+		delete board[i];
 
 	return house;
 
@@ -255,6 +266,26 @@ list<string> FilesUtils::readSolutionFromFile(string houseNumber)
 
 	return lstDirections;
 }
+list<string> FilesUtils::readSavedGameFromFile(string houseNumber)
+{
+	list<string> lstDirections;
+	char temp[10];
+
+	ifstream inFile(houseNumber , ios::in);
+
+	while (!inFile.eof())
+	{
+		inFile.getline(temp, 10);
+		lstDirections.push_back(temp);
+	}
+
+	// pop EOF Record
+	lstDirections.pop_back();
+
+	inFile.close();
+
+	return lstDirections;
+}
 
 bool FilesUtils::isThereSolution(string houseNumber)
 {
@@ -316,6 +347,17 @@ void FilesUtils::writeSaveToFile(const list<string>& lstDirections, const string
 	}
 
 	outFile.close();
+}
+
+bool FilesUtils::isSavedGameExist(string gameNumber)
+{
+	list<string> saved = FilesUtils::getAllSavedGames(gameNumber.substr(0,3));
+	bool exists = false;
+	if (!saved.empty())
+	{
+		exists = true;
+	}
+	return exists;
 }
 
 bool FilesUtils::isSavedGameExist(string name, string gameNumber)

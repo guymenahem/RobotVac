@@ -41,10 +41,18 @@ int main()
 			break;
 
 		case MainMenuState::ContinueSavedGame:
-			//todo::need to let the user choose what game to continue.. and use "resotoreGame"
-			
-			break;
+		{
+			list<string> selectedHousesToRun = Menus::selectHouseToStart();
+			string savedHouse = Menus::selectSavedHouseToStart(selectedHousesToRun.front());
 
+			// if no saved game for wanted house return to main menu
+			if (savedHouse != "")
+			{
+				simulation.loadHousesByFilesNames(selectedHousesToRun);
+				simulation.start(true, FilesUtils::readSavedGameFromFile(savedHouse));
+			}
+			break;
+		}
 		// Choose instruction
 		case MainMenuState::Instruction:
 			Menus::instructionMenu();

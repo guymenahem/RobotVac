@@ -20,7 +20,7 @@ const int MAX_STEPS_AFTER_WIN = 200;
 const int BATTERY_CAPACITY = 400;
 const int BATTERY_CONSUMPTION_RATE = 1;
 const int BATTERY_RECHARGE_RATE = 20;
-const string EMPTY_LINE = "                                                                                 ";
+const string EMPTY_LINE = "                                                                                                                     ";
 const int SLEEP_TIME = 500;
 const char VACUUM_CHAR = '@';
 

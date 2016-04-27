@@ -1,26 +1,9 @@
 #include "House.h"
 #include "Sensor.h"
 
-House::House(char _shortName[], char _longName[], int height, int width, char ** house)
-:height(height), width(width)
-{
-	strcpy(shortName, _shortName);
-	strcpy(longName, _longName);
-	curHouse = new char*[height];
 
-	// Init copy of house
-	for (int i = 0; i < height; i++)
-	{
-		curHouse[i] = new char[width];
-		strcpy(curHouse[i], house[i]);
-	}
-
-	this->initTotalDirt();
-	this->repairHouse();
-}
-
-House::House(const char* name, const char* gameNumber, int height, int width, int _numberOfSteps, char** house)
-	:height(height), width(width), numberOfSteps(_numberOfSteps)
+House::House(const char* name, const char* gameNumber, int height, int width, int _numberOfSteps, char** house, bool isValid)
+	:height(height), width(width), numberOfSteps(_numberOfSteps), isValidFile(isValid)
 {
 	strcpy(shortName, name);
 	strcpy(longName, name);
@@ -44,6 +27,7 @@ House::House(const House& house)
 	strcpy(this->gameNumber, house.gameNumber);
 	height = house.height;
 	width = house.width;
+	this->isValidFile = house.isValidFile;
 	curHouse = new char*[house.height];
 	this->numberOfSteps = house.numberOfSteps;
 
@@ -58,6 +42,16 @@ House::House(const House& house)
 	this->initTotalDirt();
 }
 
+House::~House()
+{
+	if (height != 0 || width != 0)
+	{
+		for (int i = 0; i < height; i++)
+			delete this->curHouse[i];
+		delete this->curHouse;
+	}
+}
+
 
 void House::operator=(const House& _house)
 {
@@ -66,6 +60,7 @@ void House::operator=(const House& _house)
 	strcpy(this->gameNumber, _house.gameNumber);
 	height = _house.height;
 	width = _house.width;
+	this->isValidFile = _house.isValidFile;
 	curHouse = new char*[_house.height];
 	this->numberOfSteps = _house.numberOfSteps;
 
@@ -209,7 +204,8 @@ int House::getTotalDirtLeft()
 // Check if house is valid for simulation
 HouseValidation House::isValidHouse()
 {
-
+	if (!isValidFile)
+		return HouseValidation::InvalidFileReading;
 	if (this->width < 10 || this->width > 79)
 		return HouseValidation::InvalidSize;
 	if (this->height < MIN_HOUSE_LEN || this->height > MAX_HOUSE_LEN)

@@ -1,4 +1,4 @@
-#include "SimulationPrintUtils.h"
+ #include "SimulationPrintUtils.h"
 #include <iostream>
 using  namespace std;
 
@@ -16,7 +16,7 @@ void SimulationPrintUtils::printSecondaryMenu()
 	gotoxy(0, 25);
 	cout << EMPTY_LINE;
 	gotoxy(0, 25);
-	cout << "1-continue " << "2-restart "  << " 3-save game" << "4-show solution" << "8-go to main menu " << " 9-exit " << endl;
+	cout << "1-continue " << "2-restart "  << "3-save game " << "4-show solution " << "8-go to main menu " << " 9-exit " << endl;
 }
 
 void SimulationPrintUtils::printSelectHouseMenu(list<string> lst)
@@ -33,9 +33,48 @@ void SimulationPrintUtils::printSelectHouseMenu(list<string> lst)
 	}
 }
 
+void SimulationPrintUtils::printSelectSaved(list<string> lst)
+{
+	clear_screen();
+	cout << "Please select saved to start from:" << endl;
+	cout << " enter the name to start:" << endl;
+	cout << " x - to exit:" << endl << endl;;
+
+
+	for each(string str in lst)
+	{
+		cout << str.substr(4,str.length()-16) << endl;
+	}
+}
+
 void SimulationPrintUtils::printFileNotFound()
 {
 	cout << "File not found, please enter another one" <<endl;
+}
+
+void SimulationPrintUtils::printSavedNotFound()
+{
+	cout << "Saved not found, please enter another one" << endl;
+}
+
+void SimulationPrintUtils::printMaxStepsDone()
+{
+	clear_screen();
+	cout << "You exceed the maximun steps for this house" << endl;
+	getch();
+}
+void SimulationPrintUtils::printBatteryDied()
+{
+	clear_screen();
+	cout << "Your battery died" << endl;
+	getch();
+}
+
+void SimulationPrintUtils::printFinishLastHouse()
+{
+	clear_screen();
+	cout << "You finished the game" << endl;
+	getch();
 }
 
 void SimulationPrintUtils::printSaveMenu()
@@ -68,13 +107,13 @@ void SimulationPrintUtils::clearSecondaryMenu()
 	cout << EMPTY_LINE;
 }
 
-void SimulationPrintUtils::printRoundDetails(int roundNum, int totalDustInHouse, int totalCollected, int batteryState)
+void SimulationPrintUtils::printRoundDetails(string houseNum,int roundNum, int totalDustInHouse, int totalCollected, int batteryState, int maxSteps)
 {
 	gotoxy(0, 25);
 	cout << EMPTY_LINE;
 	gotoxy(0, 25);
-	cout << "Round num= " << roundNum << " total dust in house= " << totalDustInHouse
-		<< " total collected= " << totalCollected << " battery State= " << batteryState;
+	cout << "House num =" << houseNum << " Round num= " << roundNum << " total dust in house= " << totalDustInHouse
+		<< " total collected= " << totalCollected << " battery State= " << batteryState << " Max steps= " << maxSteps;
 }
 
 void SimulationPrintUtils::printScore(int score)
@@ -120,6 +159,10 @@ void SimulationPrintUtils::printInvalidHouse(HouseValidation invalidProblem)
 		cout << "House is not valid - too much docking in the house" << " - Enter any key to continue" << endl;
 		break;
 
+	case HouseValidation::InvalidFileReading:
+		cout << "House is not valid - Problem at reading the numbers in the file (rows,cols,steps)" << " - House is skipped" << endl;
+		break;
+
 	case HouseValidation::NoDocking:
 		cout << "House is not valid - docking not found" << " - Enter any key to continue" << endl;
 		break;
@@ -130,6 +173,7 @@ void SimulationPrintUtils::printInvalidHouse(HouseValidation invalidProblem)
 	}
 
 	getch();
+	clear_screen();
 }
 
 void SimulationPrintUtils::printPointOnMovedHouse(int rows,

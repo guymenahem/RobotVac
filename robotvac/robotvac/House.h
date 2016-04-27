@@ -12,10 +12,10 @@ class House
 public:
 
 	//Constructor
-	House(char _shortName[], char _longName[], int height, int width, char** house);
-	House(const char* name, const char* gameNumber, int height, int width, int _numberOfSteps, char** house);
+	House(const char* name, const char* gameNumber, int height, int width, int _numberOfSteps, char** house, bool isValid);
 	House(const House& house);
-	House(){}
+	House(){ height = 0; width = 0; }
+	~House();
 	// Functions
 	struct SensorInformation Sense(Point location);
 	bool Clean(Point p);
@@ -26,12 +26,14 @@ public:
 
 	int getHeight(){ return height; }
 	int getWidth(){ return width; }
+	int getMaxSteps(){ return this->numberOfSteps; }
 	char getPointInfo(Point location);
 	char* getHouseNumber(){ return gameNumber; }
 	int getTotalDirtLeft();
 	void operator=(const House& _house);
 
 private:
+	bool isValidFile;
 	char shortName[SHORT_NAME_LEN];
 	char longName[LONG_NAME_LEN];
 	char gameNumber[GAME_DIGIT_NUM];

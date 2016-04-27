@@ -129,11 +129,61 @@ void Menus::clearSeconderyMenu()
 	SimulationPrintUtils::clearSecondaryMenu();
 }
 
+string Menus::selectSavedHouseToStart(string selectedHouse)
+{
+	string input;
+
+	bool isSavedGameExists = FilesUtils::isSavedGameExist(selectedHouse);
+	
+	if (isSavedGameExists)
+	{
+		list<string> savedHouses = FilesUtils::getAllSavedGames(selectedHouse.substr(0, 3));
+		if (savedHouses.size() == 1)
+		{
+			return savedHouses.front();
+		}
+		else
+		{
+			while (true)
+			{
+				SimulationPrintUtils::printSelectSaved(savedHouses);
+				cin >> input;
+
+				if (input == "x")
+				{
+					return "";
+				}
+
+				for each(string str in savedHouses)
+				{
+					if (str.substr(4, str.length() - 16) == input)
+					{
+						return str;
+					}
+				}
+
+				SimulationPrintUtils::printSavedNotFound();
+
+				getch();
+			}
+		}
+	}
+	else
+	{
+		clear_screen();
+		cout << "no saved game for house " + selectedHouse.substr(0,3) << endl <<
+			"press any key to go back to main menu";
+		getch();
+		return "";
+	};
+
+}
+
 list<string> Menus::selectHouseToStart()
 {
 	string input, curHouse;
 	list<string> housesFilesList = FilesUtils::getHousesListInFolder();
-
+	list<string> tempHousesFilesList = housesFilesList;
 	SimulationPrintUtils::printSelectHouseMenu(housesFilesList);
 
 	cin >> input;
@@ -145,59 +195,19 @@ list<string> Menus::selectHouseToStart()
 			(input[2] >= '0' && input[2] <= '9') &&
 			input.length() == 3)
 		{
-			while (!housesFilesList.empty())
+			while (!tempHousesFilesList.empty())
 			{
-				curHouse = housesFilesList.front();
+				curHouse = tempHousesFilesList.front();
 
 				if (curHouse.substr(0, 3) == input)
 				{
-					return housesFilesList;
+					return tempHousesFilesList;
 				}
 
-				housesFilesList.pop_front();
+				tempHousesFilesList.pop_front();
 			}
-
-			SimulationPrintUtils::printFileNotFound();
-		}
-
-		if (input == "x")
-		{
-			return list<string>();
-		}
-
-		cin >> input;
-
-	}
-}
-
-string  Menus::selectSavedGame()
-{
-	string input, curHouse;
-	list<string> housesFilesList = FilesUtils::getHousesListInFolder();
-
-	SimulationPrintUtils::printSelectHouseMenu(housesFilesList);
-
-	cin >> input;
-
-	while (true)
-	{
-		if ((input[0] >= '0' && input[0] <= '9') &&
-			(input[1] >= '0' && input[1] <= '9') &&
-			(input[2] >= '0' && input[2] <= '9') &&
-			input.length() == 3)
-		{
-			while (!housesFilesList.empty())
-			{
-				curHouse = housesFilesList.front();
-
-				if (curHouse.substr(0, 3) == input)
-				{
-					return housesFilesList;
-				}
-
-				housesFilesList.pop_front();
-			}
-
+			
+			tempHousesFilesList = housesFilesList;
 			SimulationPrintUtils::printFileNotFound();
 		}
 

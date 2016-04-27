@@ -24,6 +24,7 @@ public:
 	void prepareSimultaion(string fromHouse);
 	void loadHousesByFilesNames(const list<string>& lstFiles);
 	void start();
+	void start(bool startFromSaved, list<string> savedMovesLst);
 	void endSimulation();
 	void restartSimultaion();
 	int calcScoreForAlgo(Tracker& tracker);

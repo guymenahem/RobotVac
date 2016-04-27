@@ -30,7 +30,7 @@ public:
 
 	static list<string> selectHouseToStart();
 
-	static list<string> selectSavedHouseToStart();
+	static string selectSavedHouseToStart(string selectedHouse);
 };
 
 #endif

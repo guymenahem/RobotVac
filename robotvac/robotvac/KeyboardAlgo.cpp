@@ -98,3 +98,8 @@ bool KeyboardAlgo::checkIfStepIsValid(Direction direction, struct SensorInformat
 {
 	return !(sensorInfo.isWall[(int)direction]);
 }
+
+void KeyboardAlgo::clearHelpers()
+{
+	delete this->ptrSensor;
+}

@@ -22,6 +22,7 @@ public:
 	void clearLastkey() { this->lastKey = 0; }
 	Direction step();
 	void printCurLocation();
+	void clearHelpers();
 
 
 private:

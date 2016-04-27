@@ -12,13 +12,18 @@ public:
 	static void printInitialMenu();
 	static void printSecondaryMenu();
 	static void printSelectHouseMenu(list<string> lst);
+	static void printSelectSaved(list<string> lst);
 	static void printFileNotFound();
+	static void printSavedNotFound();
+	static void printMaxStepsDone();
+	static void printBatteryDied();
+	static void printFinishLastHouse();
 	static void printSaveMenu();
 	static void clearSecondaryMenu();
 	static void SimulationPrintUtils::printSaveOverrideMenu();
-	static void printRoundDetails(int roundNum,
+	static void printRoundDetails(string houseNum, int roundNum,
 		int totalDustInHouse,
-		int totalCollected, int batteryState);
+		int totalCollected, int batteryState, int maxSteps);
 	static void printInsruction();
 	static void printScore(int score);
 	static void printInvalidStep();
